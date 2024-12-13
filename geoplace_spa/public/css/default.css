@@ -1,0 +1,36 @@
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    /* outline: 1px solid yellow; */
+}
+
+#app {
+    display: flex;
+    background-color: #f0f8ff;
+    width: 100%;
+    height: 90vh;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+footer {
+    display: block;
+    width: 100%;
+    background-color: #f0f8ff;
+    color: #818181;
+    text-align: center;
+}
+
+:root {
+    --view-w-size: 100%;
+    --view-h-size:  98vh;
+    
+    --blue-color: #2480ae;
+    --gren-color: #63b668;
+    --whit-color: #f2f9f2;
+    --gray-color: #c4c4c4;
+    --dgra-color: #d9d9d9;
+}
