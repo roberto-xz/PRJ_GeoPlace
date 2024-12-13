@@ -3,7 +3,7 @@
 ##### Estrutura do Projeto
 O projeto é dividido em 3 principais camadas, visando um modelo de desenvolvimento MVC, onde a 1° camada será responsável por a view, a 2°  por a model ea terceira camada atuará como o controller. 
 
-1. **frontend (geoplace_spa) **
+1. **frontend (geoplace_spa)**
 	1. **Descrição** sub-projeto responsável por propocionar  a camada de view do sistema, utilizando abordagens hibridas para o desenvolvimento multiplataforma.
 	2. **Tecnologias**
 		1. html5/css3/javaScript
