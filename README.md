@@ -1,9 +1,9 @@
+
 # GeoPlace Project
 
 #### Estrutura geral do projeto
 <p style='text-align: justify;'>
-O projeto é dividido em 3 principais camadas, visando um modelo de desenvolvimento MVC, onde a 1° camada será responsável por a view, a 2°  por a model ea terceira camada atuará como o controller. 
-
+O projeto é dividido em 3 principais camadas, visando um modelo de desenvolvimento MVC, onde a 1° camada será responsável por a view, a 2°  por a model ea terceira camada atuará como o controller.
 </p>
 
 ### 1° frontend : geoplace_spa/
@@ -38,10 +38,10 @@ Sub-projeto responsável por propocionar  a camada de view do sistema, utilizand
 ### 3° frontend : geoplace_api/
 ---
 ##### Controle de versão e metodologia de desenvolvimento.
+
 <p style='text-align: justify;'>
 É importante que cada funcionalidade nova (feature) seja implementada  em uma nova branch com o seguinte padrão de nomeclatura geoplace_dev_feature_code, a pós a implementação da feature o pull request deverá ser feito para a branch geoplace_dev.  Para bugs e correções, uma issue devera ser aberta na branch geoplace_dev, ela será analizada e entrará no fluxo da metodologia de desenvolvimento adotada. 
 </p>
-
 ##### padrões de commite e boas práticas no códico
 
 - Todos os commits deverá ter uma tag e uma mensagem curta.
