@@ -1,7 +1,10 @@
-## GeoPlace Project
+
+<center>
+	<img src="geoplace_res/icons/geoplace_logo_1.png" alt="" width="250px"/>
+</center>
 
 ##### Estrutura do Projeto
-O projeto é dividido em 3 principais camadas, visando um modelo de desenvolvimento MVC, onde a 1° camada será responsável por a view, a 2°  por a model ea terceira camada atuará como o controller. 
+<p style="text-align: justifyd">O projeto é dividido em 3 principais camadas, visando um modelo de desenvolvimento MVC, onde a 1° camada será responsável por a view, a 2°  por a model ea terceira camada atuará como o controller. </p>
 
 1. **frontend (geoplace_spa)**
 	1. **Descrição** sub-projeto responsável por propocionar  a camada de view do sistema, utilizando abordagens hibridas para o desenvolvimento multiplataforma.
@@ -23,7 +26,7 @@ O projeto é dividido em 3 principais camadas, visando um modelo de desenvolvime
 3. **API (geoplace_api)**
 
 ##### Controle de versão e metodologia de desenvolvimento.
-É importante que cada funcionalidade nova (feature) seja implementada  em uma nova branch com o seguinte padrão de nomeclatura **geoplace_dev_feature_code**, a pós a implementação da feature o pull request deverá ser feito para a branch **geoplace_dev**.  Para bugs e correções, uma issue devera ser aberta na branch **geoplace_dev**, ela será analizada e entrará no fluxo da metodologia de desenvolvimento adotada. 
+<p style="text-align: justifyd">É importante que cada funcionalidade nova (feature) seja implementada  em uma nova branch com o seguinte padrão de nomeclatura **geoplace_dev_feature_code**, a pós a implementação da feature o pull request deverá ser feito para a branch **geoplace_dev**.  Para bugs e correções, uma issue devera ser aberta na branch **geoplace_dev**, ela será analizada e entrará no fluxo da metodologia de desenvolvimento adotada.</p> 
 
 - ##### padrões de commite e boas práticas no códico
 2. Todos os commits deverá ter uma tag e uma mensagem curta.
