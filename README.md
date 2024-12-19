@@ -75,4 +75,4 @@ Ao adotar a metodologia ágil SCRUM, espera-se que, nas primeiras semanas, o sis
 
 ---
 
-1° [Miro board](https://www.google.com) | 2° [Figma protótipo](https://www.google.com) | 3° [www.geoplace.com](#)
+1° [Miro board](https://www.google.com) | 2° [Figma protótipo](https://www.google.com) | 3° [www.geoplace.com](https://geoplace-app.onrender.com)
