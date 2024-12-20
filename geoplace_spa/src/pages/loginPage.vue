@@ -1,99 +1,127 @@
 
 <script setup>
+
+    const show_password = ()=>{
+        let pass_input = document.getElementById("password");
+        let change_elm = document.getElementById("show-pw");
+        
+        if (pass_input.type == 'password'){
+            pass_input.type = 'text';
+            change_elm.innerText = 'esconder'
+        } else {
+            pass_input.type = 'password';
+            change_elm.innerText = 'mostrar'
+        }
+    }
 </script>
 
 <template>
     <div id="login-page">
-        <img src="/res/logo.png" alt="geoplace logo image"/>
-        <label> Email <input id="email" type="email" placeholder="Senha123"/></label>
-        <label> Senha
-            <div>
-                <input id="pass" type="password" placeholder="Senha123"/>
-                <img class='inp-ic' src='/res/ic_002.svg' alt=''/>
-            </div>
-        </label>
-        <a id="recovery">Recuperar Conta</a>
-        <label><input type="checkbox"> Permanecer conectado?</label>
-        <button>Entrar</button>
-        <p> Não tem uma conta?, <a>Criar</a> </p>
+        <img src="/res/logo.png" alt="geoplace image logo"/>
+        <div id="page-form">
+            <label> Email ou CPF
+                <input id="email" type="email" placeholder="user.name@email.com">
+            </label>
+
+            <label> Senha
+                <div id="passw">
+                    <input id="password" type="password" placeholder="senha123">
+                    <button id="show-pw" @click="show_password">mostrar</button>
+                </div>
+            </label>
+            <span id="rec-link" href="">Esqueci a senha</span>
+            <button id="bnt-login">Entrar</button>
+        </div>
     </div>
 </template>
 
 <style scoped>
     #login-page {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100vw;
+        height: 85vh;
+    }
+    img {
         display: block;
-        width: 90vw;
-        height: 40vh;
-        background-color: #f0f8ff;
-        /* background-color: red; */
+        width: 35vw;
+        align-self: center;
     }
 
-    div > img {
+    #page-form {
         display: block;
-        width: 150px;
-        margin: 0 auto;
-        margin-bottom: 10%;;
+        width: 100%;
     }
 
     label {
         display: block;
-        width: 90%;
-        margin: 5% auto;
+        width: 87%;
+        margin: 4% auto;
         color: #000;
-        font: normal 1rem/1 Sans-serif;
+        font: normal 1rem/1 "Manjari";
     }
+        #email {
+            display: block;
+            border: 1px solid #c4c4c4;
+            background-color: #d5d5d5;
+            font: normal 1rem/1 "Manjari";
+            width: 100%;
+            padding: 5% 4%;
+            margin-top: 5px;
+            outline: none;
+        }
 
-    input[type="email"] {
-        display: block;
-        width: 100%;
-        padding: 4%;
-        border-radius: 5px;
-        margin-top: 10px;
-        border: 1px solid var( --dgra-color);
-        background-image: url('/res/email.svg');
-        background-repeat: no-repeat;
-        background-position: 95% 50%;
-        outline-color: var(--blue-color);
-        font: normal 1rem/1 Sans-serif;
-        background-color: #fff;
-    }
+        #passw {
+            display: grid;
+            grid-template-columns: 75% 25%;
+            border: 1px solid #c4c4c4;
+            background-color: #d5d5d5;
+            
+            width: 100%;
+            padding: 5% 4%;
+            margin-top: 5px;
+        }
+            #password{
+                font: normal 1rem/1 "Manjari";
+                border: none;
+                background: transparent;
+                outline: none;
+            }
 
-    label > div {
-        margin-top: 10px;
-        display: flex;
-        flex-wrap: nowrap;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        border-radius: 5px;
-        border: 1px solid var( --dgra-color);
-        background-color: #fff;
-    }
+            #show-pw {
+                display: block;
+                width: 100%;
+                text-align: right;
+                margin: auto auto;
+                font: bolder .9rem/1 "Manjari";
+                cursor: pointer;
+                user-select: none;
+                background: none;
+                border: none;
+                outline: none;
+            }
 
-    label > div:hover {
-        border: 2.5px solid var(--blue-color);
-    }
+        #rec-link {
+            display: block;
+            width: 87%;
+            margin: 0 auto;
+            text-align: right;
+            font: bolder .9rem/1 "Manjari";
+            text-decoration: underline;
+            cursor: pointer;
+        }
 
-    input[type="password"] {
-        display: block;
-        width: 84%;
-        padding: 4%;
-        border: none;
-        background: none;
-        outline: none;
-    }
+        #bnt-login {
+            display: block;
+            background-color: #3D677A;
+            border: 1px solid #3D677A;
+            width: 87%;
+            padding: 4%;
+            margin: 15% auto 0 auto;
+            color: var(--whit-color);
+            font: bolder 1rem/1 "Manjari";
+            cursor: pointer;
+        }
 
-    label > div > img {
-        display: block;
-        width: 7%;
-        margin: auto auto;
-    }
-    #recovery {
-        display: block;
-        width: 90%;
-        margin: 0 auto;
-        text-align: right;
-        color: var(--blue-color);
-        font: normal 1rem/1 Sans-serif;
-    }
 </style>
