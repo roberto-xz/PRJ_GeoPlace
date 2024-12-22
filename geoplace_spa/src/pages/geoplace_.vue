@@ -4,7 +4,7 @@
     import appHeader from "./component_s/app_header.vue";
     import appRmenu  from "./component_s/app_rmenu.vue"
 
-    const rmenu_opened = ref(false)
+    const rmenu_opened = ref(true)
 
     const toogleMenu = function() {
         rmenu_opened.value = !rmenu_opened.value;
@@ -12,10 +12,13 @@
 
 </script>
 
-<template> <div>
-    <appHeader
-        @click-rmenu = "toogleMenu"
-    />
+<template> 
+<div>
+    <appHeader @open-rmenu = "toogleMenu"/>
+    <appRmenu v-if="rmenu_opened" @close-rmenu = "toogleMenu"/>
     
-    <appRmenu v-if="rmenu_opened"/>
-</div></template>
+    <div id="cards-box">
+
+    </div>
+</div>
+</template>

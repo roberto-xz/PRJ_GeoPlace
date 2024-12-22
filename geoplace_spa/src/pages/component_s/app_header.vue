@@ -2,7 +2,7 @@
 <template>
     <header id="app-header">
         <div id="div-a">
-            <img src='/res/rmenu.svg' id="rmenu-icon" alt='' @click="$emit('click-rmenu')"/>
+            <img src='/res/rmenu.svg' id="rmenu-icon" alt='' @click="$emit('open-rmenu')"/>
             <h1>Página inicial</h1>
         </div>
         <div id="search-box">
