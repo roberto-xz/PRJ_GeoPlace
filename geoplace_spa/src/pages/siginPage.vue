@@ -1,5 +1,10 @@
 
 <script setup>
+    import {useRouter} from 'vue-router'
+    const router = useRouter();
+
+    const toLoginPage = ()=> {router.push('/loginPage')}
+    const toValidPage = ()=> {router.push('/ValidPage')}
 </script>
 
 <template>
@@ -22,8 +27,8 @@
             <label id="user-terms"> 
                 <input id="terms" type="checkbox"> le, e aceito os <button id="terms-link">termos de uso</button>
             </label>
-            <button id="bnt-sigin">Entrar</button>
-            <button id="bnt-login">Já tenho uma conta</button>
+            <button id="bnt-sigin" @click="toValidPage()">Entrar</button>
+            <button id="bnt-login" @click="toLoginPage()">Já tenho uma conta</button>
         </div>
     </div>
 </template>
