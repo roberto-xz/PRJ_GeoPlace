@@ -9,7 +9,8 @@ const routers = createRouter({
     {path: '/indexPage',name:'index',component: ()=> import('../pages/indexPage.vue')},
     {path: '/loginPage',name:'login',component: ()=> import('../pages/loginPage.vue')},
     {path: '/siginPage',name:'sigin',component: ()=> import('../pages/siginPage.vue')},
-    {path: '/validPage',name:'valid',component: ()=> import('../pages/validPage.vue')}
+    {path: '/validPage',name:'valid',component: ()=> import('../pages/validPage.vue')},
+    {path: '/updatPerf',name:'perfl',component: ()=> import('../pages/updatPerf.vue')}
   ],
   
 });
