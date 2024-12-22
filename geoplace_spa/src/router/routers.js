@@ -8,7 +8,8 @@ const routers = createRouter({
   routes: [
     {path: '/indexPage',name:'index',component: ()=> import('../pages/indexPage.vue')},
     {path: '/loginPage',name:'login',component: ()=> import('../pages/loginPage.vue')},
-    {path: '/siginPage',name:'sigin',component: ()=> import('../pages/siginPage.vue')}
+    {path: '/siginPage',name:'sigin',component: ()=> import('../pages/siginPage.vue')},
+    {path: '/validPage',name:'valid',component: ()=> import('../pages/validPage.vue')}
   ],
   
 });
