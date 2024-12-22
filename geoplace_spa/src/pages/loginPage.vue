@@ -1,5 +1,7 @@
 
 <script setup>
+    import {useRouter} from "vue-router"
+    const router = useRouter();
 
     const show_password = ()=>{
         let pass_input = document.getElementById("password");
@@ -30,7 +32,7 @@
                 </div>
             </label>
             <span id="rec-link" href="">Esqueci a senha</span>
-            <button id="bnt-login">Entrar</button>
+            <button @click="()=> router.push('/geoplace_')" id="bnt-login">Entrar</button>
         </div>
     </div>
 </template>

@@ -10,7 +10,8 @@ const routers = createRouter({
     {path: '/loginPage',name:'login',component: ()=> import('../pages/loginPage.vue')},
     {path: '/siginPage',name:'sigin',component: ()=> import('../pages/siginPage.vue')},
     {path: '/validPage',name:'valid',component: ()=> import('../pages/validPage.vue')},
-    {path: '/updatPerf',name:'perfl',component: ()=> import('../pages/updatPerf.vue')}
+    {path: '/updatPerf',name:'perfl',component: ()=> import('../pages/updatPerf.vue')},
+    {path: '/geoplace_',name:'mainp',component: ()=> import('../pages/geoplace_.vue')}
   ],
   
 });
