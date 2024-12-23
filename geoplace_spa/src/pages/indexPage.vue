@@ -4,8 +4,8 @@
     import {useRouter} from 'vue-router'
     const router = useRouter();
 
-    const toSiginPage = ()=> {router.push('/siginPage')}
     const toLoginPage = ()=> {router.push('/loginPage')}
+    const toSiginPage = ()=> {router.push('/siginPage')}
     // const toFeedsPage = ()=> {router.push('/feedsPage')}
 </script>
 
