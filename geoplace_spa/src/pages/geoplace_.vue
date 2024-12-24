@@ -6,6 +6,7 @@
     import appRmenu  from "./component_s/app_rmenu.vue"
     import cardsV1 from "./component_s/app_cardv1.vue"
     import cardsV2 from "./component_s/app_cardv2.vue"
+    import cardsV3 from "./component_s/app_cardv3.vue"
 
     const router = useRouter()
     const rmenu_opened = ref(false)
@@ -17,6 +18,7 @@
     const toogleComponent = function(component_id) {
         if (component_id == 1) currentComponent.value = cardsV1;
         if (component_id == 2) currentComponent.value = cardsV2;
+        if (component_id == 3) currentComponent.value = cardsV3;
     }
 
     const goToDetails = ()=>{ router.push('/detailsPage')}
@@ -31,7 +33,7 @@
     <div id="nav-footer-menu">
         <button @click="toogleComponent(2)">Favoritos</button>
         <button @click="toogleComponent(1)">Home</button>
-        <button>Meus Anuncios</button>
+        <button @click="toogleComponent(3)">Meus Anuncios</button>
     </div>
 </div>
 </template>
@@ -45,6 +47,5 @@
         grid-template-columns: repeat(3, 1fr);
         background: red;
     }
-
     #nav-footer-menu button {padding: 10px;}
 </style>
