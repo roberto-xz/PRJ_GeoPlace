@@ -4,17 +4,14 @@
 
 <template>
 <div id="cards-box">
-    <div class="card" v-for="x in 20" v-bind:key='x' @click="$emit('open-card',x)">
+    <div class="card" v-for="x in 1" v-bind:key='x' @click="$emit('open-card',x)">
         <h1>Título do anuncio, um pouco grande {{x}}</h1>
         <img src='/res/noImageAvailiable.webp' alt=""/>
         <ul>
-            <li><img src="/res/filter.svg" alt="con-ico"> Venda/Aluguel</li>
-            <li><img src="/res/filter.svg" alt="con-ico"> 3 banheiros</li>
-            <li><img src="/res/filter.svg" alt="con-ico"> 2 cozinhas</li>
+            <li>170.000,00 R$</li>
+            <li>Remover</li>
+            <li>Cabrobó-PE</li>
         </ul>
-        <p> preço: 178.000, 00 R$
-            <span>Cabrobó-PE</span>
-        </p>
     </div>
 </div>
 </template>
