@@ -12,7 +12,8 @@ const routers = createRouter({
     {path: '/validPage',name:'valid',component: ()=> import('../pages/validPage.vue')},
     {path: '/updatePerfil',name:'perfl',component: ()=> import('../pages/updatePerfil.vue')},
     {path: '/geoplace_',name:'mainp',component: ()=> import('../pages/geoplace_.vue')},
-    {path: '/detailsPage',name:'details',component: ()=> import('../pages/detailsPage.vue')}
+    {path: '/detailsPage',name:'details',component: ()=> import('../pages/detailsPage.vue')},
+    {path: '/favoritesPage',name:'favorites',component: ()=> import('../pages/favoritesPage.vue')}
   ],
   
 });

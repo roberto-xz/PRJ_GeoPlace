@@ -5,6 +5,8 @@
 
     const exit = ()=>{router.push("/indexPage")}
     const toUpdatePerfil = ()=>{router.push('/updatePerfil')}
+    const tofavoritesPage = ()=>{router.push('/favoritesPage')}
+    const toHomePage = ()=>{router.push('/geoplace_')}
 </script>
 
 <template>
@@ -18,8 +20,8 @@
             </div>
             <nav id="rmenu-options">
                 <ul>
-                    <li><label><img src='/res/filter.svg' alt=''/>Home</label></li>
-                    <li><label><img src='/res/filter.svg' alt=''/>Salvos</label></li>
+                    <li><label @click="toHomePage()"><img src='/res/filter.svg' alt=''/>Home</label></li>
+                    <li><label @click="tofavoritesPage()"><img src='/res/filter.svg' alt=''/>Salvos</label></li>
                     <li><label><img src='/res/filter.svg' alt=''/>Meus anúncios</label></li>
                     <li><label><img src='/res/filter.svg' alt=''/>Criar Anúncios</label></li>
                     <li><label @click="toUpdatePerfil()"><img src='/res/filter.svg' alt=''/>Minha conta</label></li>

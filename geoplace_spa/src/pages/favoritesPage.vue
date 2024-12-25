@@ -1,15 +1,13 @@
-
 <script setup>
     import {ref} from "vue"
     import {useRouter} from 'vue-router'
     import appHeader from "./component_s/app_header.vue";
-    import appRmenu  from "./component_s/app_rmenu.vue"
-    import cardsV1 from "./component_s/app_cardv1.vue"
-    import cardsV3 from "./component_s/app_cardv3.vue"
-
+    import appRmenu  from "./component_s/app_rmenu.vue";
+    import favorites from "./component_s/app_card_favorites.vue"
+    
     const router = useRouter()
     const rmenu_opened = ref(false)
-    const currentComponent = ref(cardsV1);
+   
 
     const toogleMenu = function() {
         rmenu_opened.value = !rmenu_opened.value;
@@ -20,9 +18,9 @@
 
 <template> 
 <div>
-    <appHeader @open-rmenu = "toogleMenu" page_title="Pagina principal"/>
+    <appHeader @open-rmenu = "toogleMenu" page_title="Meus favoritos"/>
     <appRmenu v-if="rmenu_opened" @close-rmenu = "toogleMenu"/>
-    <component :is='currentComponent' @open-card="goToDetails()"/>
+    <favorites/>
 </div>
 </template>
 
