@@ -21,7 +21,7 @@
 <div>
     <appHeader @open-rmenu = "toogleMenu" page_title="Pagina principal"/>
     <appRmenu v-if="rmenu_opened" @close-rmenu = "toogleMenu"/>
-    <cardFeeds/>
+    <cardFeeds @open-card="goToDetails(x)"/>
 </div>
 </template>
 
