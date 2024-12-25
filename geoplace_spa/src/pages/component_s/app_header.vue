@@ -1,9 +1,18 @@
 
+<script setup>
+    const props = defineProps({
+        page_title: {
+            type: String,
+            required: true
+        }
+    });
+</script>
+
 <template>
     <header id="app-header">
         <div id="div-a">
             <img src='/res/rmenu.svg' id="rmenu-icon" alt='' @click="$emit('open-rmenu')"/>
-            <h1>Página inicial</h1>
+            <h1>{{page_title}}</h1>
         </div>
         <div id="search-box">
             <input type="url" placeholder="Procurar, Estado, cidade rua"/>

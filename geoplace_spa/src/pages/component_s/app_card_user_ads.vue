@@ -1,20 +1,18 @@
-
 <script setup>
 </script>
 
 <template>
 <div id="cards-box">
-    <div class="card" v-for="x in 20" v-bind:key='x' @click="$emit('open-card',x)">
-        <h1>Título do anuncio, um pouco grande {{x}}</h1>
+    <div class="card" v-for="x in 2" v-bind:key='x' @click="$emit('open-card',x)">
+        <h1>Anúncio Preço {{x}}</h1>
         <img src='/res/noImageAvailiable.webp' alt=""/>
         <ul>
-            <li><img src="/res/filter.svg" alt="con-ico"> Venda/Aluguel</li>
-            <li><img src="/res/filter.svg" alt="con-ico"> 3 banheiros</li>
-            <li><img src="/res/filter.svg" alt="con-ico"> 2 cozinhas</li>
+            <li>views: 20</li>
+            <li>salvos: 4</li>
+            <li>Data: 20d/14d</li>
+            <li>Apagar</li>
+            <li>Renovar</li>
         </ul>
-        <p> preço: 178.000, 00 R$
-            <span>Cabrobó-PE</span>
-        </p>
     </div>
 </div>
 </template>
@@ -23,7 +21,7 @@
     #cards-box {
         display: block;
         width: 94%;
-        height: 84vh;
+        height: 80vh;
         overflow: auto;
         margin: 0 auto;
         padding: 5px 0;
@@ -31,9 +29,10 @@
     .card {
         overflow: hidden;
         width: 450px;
-        height: 422px;
+        height: 300px;
         margin: auto auto;
         margin-bottom: 40px;    
+        border: 1px solid red;
     }
         h1 {
             width: 100%;
