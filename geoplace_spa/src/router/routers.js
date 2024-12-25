@@ -14,7 +14,10 @@ const routers = createRouter({
     {path: '/geoplace_',name:'mainp',component: ()=> import('../pages/geoplace_.vue')},
     {path: '/detailsPage',name:'details',component: ()=> import('../pages/detailsPage.vue')},
     {path: '/favoritesPage',name:'favorites',component: ()=> import('../pages/favoritesPage.vue')},
-    {path: '/userAds',name:'userAdsPage',component: ()=> import('../pages/userAdsPage.vue')}
+    {path: '/userAds',name:'userAdsPage',component: ()=> import('../pages/userAdsPage.vue')},
+    {path: '/about',name:'about',component: ()=> import('../pages/aboutPage.vue')},
+    {path: '/help',name:'help',component: ()=> import('../pages/helpPage.vue')},
+    {path: '/terms',name:'userTerms',component: ()=> import('../pages/userTermsPage.vue')},
   ],
   
 });
