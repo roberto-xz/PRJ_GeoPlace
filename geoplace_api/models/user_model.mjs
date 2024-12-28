@@ -1,8 +1,8 @@
 
-const { DataTypes } = require('sequelize');
-const sequelize = require('../sequelize');
+import {DataTypes} from 'sequelize';
+import {sequelize} from '../sequelize.mjs';
 
-const Users = sequelize.define('Users', {
+export const UserModel = sequelize.define('users', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -83,16 +83,11 @@ const Users = sequelize.define('Users', {
         type: DataTypes.INTEGER,
         allowNull: true,
     }
-}, {
-    tableName: 'users'
-    // timestamps: true, 
 });
 
-Users.beforeCreate(async (user) => {
-    if (user.user_pass) {
-        const salt = await bcrypt.genSalt(10);
-        user.user_pass = await bcrypt.hash(user.user_pass, salt);
-    }
-});
-
-module.exports = Users;
+// Users.beforeCreate(async (user) => {
+//     if (user.user_pass) {
+//         const salt = await bcrypt.genSalt(10);
+//         user.user_pass = await bcrypt.hash(user.user_pass, salt);
+//     }
+// });
