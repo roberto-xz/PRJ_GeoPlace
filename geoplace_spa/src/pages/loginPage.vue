@@ -4,34 +4,57 @@
     import {useRouter} from "vue-router";
     import API_CONFIGS from './../../api.config.mjs';
     import sha1 from "sha1";
-
+    const api_url = `http://${API_CONFIGS.API_HOST}:${API_CONFIGS.API_PORT}`;
     const router = useRouter();
 
-    onBeforeMount(()=> {
-        let token = window.localStorage.getItem('geoplaceToken');
-        if ( token ) {
-            // validar antes de redirecionar
-            console.log('possue um token de login')
-            router.push('/geoplace_')
+    onBeforeMount(async ()=> {
+        // verifica se há dados de sessão para validar o token, antes
+        // de redirecionar ou renderizar a página.
+        let app_token = window.localStorage.getItem('geoplaceToken');
+        let error_el = document.getElementById('error-msg');
+
+        if ( app_token ) {
+            const response = await fetch(api_url+'/valid',{
+                method: 'POST',
+                headers: {'content-type': 'application/json'},
+                body: JSON.stringify({user_token: app_token})
+            });
+            // servidor respondeu
+            if (response.ok) {
+                let result = await response.json();
+                if (result.code == 200)
+                    return router.push('/geoplace_'); 
+                window.localStorage.removeItem('geoplaceToken');
+                return;
+            }
+            error_el.style.opacity = 1;
+            error_el.innerText = 'Server Is Not Allowed'
+            setTimeout(()=>{error_el.style.opacity = 0;},3000)
         }
     })
 
     const login = async ()=> {
-        let api_url = `http://${API_CONFIGS.API_HOST}:${API_CONFIGS.API_PORT}/login`;
         let email_el = document.getElementById('usr-email');
         let passw_el = document.getElementById('usr-passw');
         let error_el = document.getElementById('error-msg');
-
-        const response = await fetch(api_url, {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify({
-                user_mail: email_el.value,
-                user_pass: sha1(passw_el.value)
-            })
-        });
+        let response = undefined;
+        try {
+            response = await fetch(api_url+'/login', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify({
+                    user_mail: email_el.value,
+                    user_pass: sha1(passw_el.value)
+                })
+            });
+        }catch(e){
+            error_el.style.opacity = 1;
+            error_el.innerText = 'Server Is Not Allowed'
+            setTimeout(()=>{error_el.style.opacity = 0;},3000)
+            return;
+        }
 
         if ( response.ok ) {
             let result = await response.json();
@@ -43,7 +66,7 @@
             }
 
             if (result.code == 200 ) {
-                window.localStorage.setItem('geoplaceToken',JSON.stringify(result));
+                window.localStorage.setItem('geoplaceToken',result.user_token);
                 router.push('/geoplace_')
             }
         }
