@@ -111,13 +111,15 @@
         justify-content: center;
         align-items: center;
         width: 100vw;
-        height: 100vh;
+        height: 90vh;
     }
-    main { width: 80%;}
+    main { 
+        width: 90%;
+    }
 
     img {
         display: block;
-        width: 33vw;
+        width: 150px;
         margin: 0 auto;
         margin-bottom: 10px;
         align-self: center;
@@ -131,7 +133,7 @@
         background-color: rgb(236, 127, 127);
         font: bolder .8rem/1 "Manjari";
         color: #f3f3f3;
-        padding: 6px;
+        padding: 3%;
     }
 
     #email-box, #passw-box{
@@ -143,22 +145,24 @@
     }
         #email-box input[type='email'] {
             border: 1px solid #c4c4c4;
-            background-color: #d5d5d5;
+            background-color: #e8e7e7;
             display: block;
             font: normal .9rem/1 "Manjari";
             width: 100%;
-            padding: 4% 1%;
+            padding: 5% 1%;
             margin-top: 5px;
+            outline-color: #3D677A;
         }
 
         #passw-box input[type='password'], #passw-box input[type='text'] {
             border: 1px solid #c4c4c4;
-            background-color: #d5d5d5;
+            background-color: #e8e7e7;
             display: block;
             font: normal .9rem/1 "Manjari";
             width: 100%;
-            padding: 4% 1%;
+            padding: 5% 1%;
             margin-top: 5px;
+            outline-color: #3D677A;
         }
 
     #coll_2_-box {
@@ -170,12 +174,15 @@
         margin-top: 8px;
     }
         #show-pbox,#rec-link {cursor: pointer; user-select: none;}
-    
+        input[type='checkbox'] {
+            vertical-align: middle;
+        }
     #bnt-login {
         display: block;
         background-color: var(--gren-color);
+        border: 1px solid var(--gren-color);
         width: 100%;
-        padding: 3%;
+        padding: 4% 10px;
         text-align: center;
         margin: 40px auto 2% auto;
         color: var(--whit-color);
