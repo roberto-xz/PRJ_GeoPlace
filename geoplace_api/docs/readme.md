@@ -51,6 +51,40 @@ A requisição deve ser enviada no formato JSON com os seguintes campos:
 
 ---
 
+## **POST /sigin**
+Rota responsável por criar um novo usuário. 
+
+A requisição deve ser enviada no formato JSON com os seguintes campos:
+
+```json
+{
+    "user_mail": "<valid-email-format>",
+    "user_pass": "<SHA1-password-hash>"
+}
+```
+- **user_mail**: O email do usuário (deve estar em formato válido).
+- **user_pass**: A senha do usuário em formato hash SHA1.
+
+### **Respostas**
+
+#### Em caso de sucesso (Código 200):
+```json
+{
+    "code": 200, 
+    "message": 'Ok'
+}
+```
+#### email/cpf/user. já resgistrados (Código 102 )
+```json
+{
+    "code": 102, 
+    "message": "Duplicate Data",
+    "type": "CPF/EMAIL/USER"
+}
+```
+
+---
+
 ## **POST /valid**
 
 Rota responsável por validar tokens de login. Essa rota verifica se o token enviado é válido.
@@ -84,6 +118,7 @@ A requisição deve conter o token JWT no corpo da requisição:
 
 ---
 
+
 ## **Códigos de Erro da API**
 
 - **200 (Ok)**: A requisição foi bem-sucedida.
@@ -94,3 +129,8 @@ A requisição deve conter o token JWT no corpo da requisição:
   - Estrutura do JSON malformada.
 
 - **101 (Invalid Data)**: Os dados fornecidos são válidos, mas não correspondem aos registros no banco de dados (ex.: email ou senha incorretos).
+
+- **102 (Duplicate Data)**: Os dados fornencidos são válidos, porém já existe na base de dados e são tidos
+como únicos.
+
+- **300 (Parse Json Error)**: O servidor recebu um json com uma sintax inválida e não conseguio executar um parse.
