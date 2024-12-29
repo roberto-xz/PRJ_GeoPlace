@@ -12,3 +12,11 @@ export const isValidHashSha1 = (hash) => {
     if (hash.length < 15 ) return false;
     return validator.isHash(hash,'sha1')
 }
+
+export const CreatMagicNumber = (len)=> {
+    let magic = undefined;
+    for (let x=0; x<len-1; x++) 
+        magic += (Math.floor(Math.random()*9)+1);
+    
+    return magic
+}
