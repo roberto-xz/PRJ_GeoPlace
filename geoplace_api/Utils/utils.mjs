@@ -14,8 +14,8 @@ export const isValidHashSha1 = (hash) => {
 }
 
 export const CreatMagicNumber = (len)=> {
-    let magic = undefined;
-    for (let x=0; x<len-1; x++) 
+    let magic = '';
+    for (let x=0; x<len; x++) 
         magic += (Math.floor(Math.random()*9)+1);
     
     return magic
