@@ -11,7 +11,7 @@ export const loginController = async (req, res)=> {
     let user_pass = req.body.user_pass;
 
     if ( !isValidEmail(user_mail) || !isValidHashSha1(user_pass))
-        return res.status(200).json({code: 100, message: 'Invalid Credentials Format'});
+        return res.status(200).json({code: 100, message: 'Invalid Request Format'});
 
     const user = await UserModel.findOne({
         where: {
@@ -22,7 +22,7 @@ export const loginController = async (req, res)=> {
     });
     
     if (user == null )
-        return res.status(200).json({code: 101, message: 'Wrong Login Data'});
+        return res.status(200).json({code: 101, message: 'Invalid Data'});
     
        
     let user_payload = {

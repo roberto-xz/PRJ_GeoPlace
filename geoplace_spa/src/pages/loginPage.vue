@@ -11,8 +11,6 @@
         // verifica se há dados de sessão para validar o token, antes
         // de redirecionar ou renderizar a página.
         let app_token = window.localStorage.getItem('geoplaceToken');
-        let error_el = document.getElementById('error-msg');
-
         if ( app_token ) {
             const response = await fetch(api_url+'/valid',{
                 method: 'POST',
@@ -22,14 +20,15 @@
             // servidor respondeu
             if (response.ok) {
                 let result = await response.json();
-                if (result.code == 200)
-                    return router.push('/geoplace_'); 
+                if (result.code == 200) 
+                    return router.push('/geoplace_');
+                
+                // token inválido, remove o token e continua nessa página
                 window.localStorage.removeItem('geoplaceToken');
                 return;
             }
-            error_el.style.opacity = 1;
-            error_el.innerText = 'Server Is Not Allowed'
-            setTimeout(()=>{error_el.style.opacity = 0;},3000)
+            // tem um token mas não foi validado (API offline)
+            // redirecionar para 404? (página 404, ainda não existe)
         }
     })
 
@@ -38,7 +37,7 @@
         let passw_el = document.getElementById('usr-passw');
         let error_el = document.getElementById('error-msg');
         let response = undefined;
-        try {
+        try { // tenta uma conexão com a API
             response = await fetch(api_url+'/login', {
                 method: 'POST',
                 headers: {
@@ -51,7 +50,7 @@
             });
         }catch(e){
             error_el.style.opacity = 1;
-            error_el.innerText = 'Server Is Not Allowed'
+            error_el.innerText = 'Internal error, offline server'
             setTimeout(()=>{error_el.style.opacity = 0;},3000)
             return;
         }
@@ -73,7 +72,7 @@
     }
 
 
-    const showPws = ()=>{
+    const showPws = ()=> {
         let pass_input = document.getElementById("usr-passw");
         pass_input.type = (pass_input.type == 'password') ? 'text' : 'password';
     }
@@ -176,6 +175,10 @@
         #show-pbox,#rec-link {cursor: pointer; user-select: none;}
         input[type='checkbox'] {
             vertical-align: middle;
+        }
+        #rec-link {
+            text-decoration: underline;
+            color: blue;
         }
     #bnt-login {
         display: block;

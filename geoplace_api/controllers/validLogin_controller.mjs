@@ -6,12 +6,12 @@ export const validLoginController = (req,res) =>{
     let token = req.body.user_token;
 
     if (token == undefined )
-        return res.status(200).json({code: 103, message: 'Bad Token Format'});
+        return res.status(200).json({code: 100, message: 'Invalid Request Format'});
 
     try {
         jwt.verify(token,API_CONFIGS.API_JKEY);
-        return res.status(200).json({code: 200, message: 'Token Valid'});
+        return res.status(200).json({code: 200, message: 'ok'});
     }catch(e) {
-        return res.status(200).json({code: 103, message: 'Bad Token Format or Expirated'});
+        return res.status(200).json({code: 100, message: 'Invalid Request Format'});
     }
 }

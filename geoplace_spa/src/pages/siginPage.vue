@@ -1,147 +1,158 @@
 
 <script setup>
     import {useRouter} from 'vue-router'
+    import {onBeforeMount} from 'vue'
     const router = useRouter();
 
-    const toLoginPage = ()=> {router.push('/loginPage')}
+    onBeforeMount(async ()=> {
+        // verifica se há dados de sessão para validar o token, antes
+        // de redirecionar ou renderizar a página.
+        let app_token = window.localStorage.getItem('geoplaceToken');
+        if ( app_token ) {
+            const response = await fetch(api_url+'/valid',{
+                method: 'POST',
+                headers: {'content-type': 'application/json'},
+                body: JSON.stringify({user_token: app_token})
+            });
+            // servidor respondeu
+            if (response.ok) {
+                let result = await response.json();
+                if (result.code == 200) 
+                    return router.push('/geoplace_');
+                
+                // token inválido, remove o token e continua nessa página
+                window.localStorage.removeItem('geoplaceToken');
+                return;
+            }
+            // tem um token mas não foi validado (API offline)
+            // redirecionar para 404? (página 404, ainda não existe)
+        }
+    })
+
+    const sigin = () => {}
+    const showPws = ()=>{
+        let pass_input = document.getElementById("usr-passw");
+        pass_input.type = (pass_input.type == 'password') ? 'text' : 'password';
+    }
+
     const toValidPage = ()=> {router.push('/ValidPage')}
+    const toLogin = ()=>{router.push('/loginPage')}
 </script>
 
 <template>
-    <div id="sigin-page">
-        <header>
-            <img src="/res/simple_logo_1.svg" alt="geoplace image logo"/>
-            <h1>Criar conta</h1>
-        </header>
-        <div id="page-form">
-            <label> Endereço de Email
-                <input id="email" type="email" placeholder="user.name@email.com">
-            </label>
+   <div id="sigin-page">
+    <main>
+        <img src="/res/logo.png" alt="geoplace image logo"/>
+        <div id='error-msg'>Messagens aki</div>
+        <label id='email-box'> 
+            Endereço de Email
+            <input id="usr-email" type="email" placeholder="user.name@email.com">
+        </label>
 
-            <label> Senha
-                <div id="passw">
-                    <input id="password" type="password" placeholder="senha123">
-                    <button id="show-pw" @click="show_password">mostrar</button>
-                </div>
+        <label id='passw-box'> 
+            Digite uma Senha
+            <input id="usr-passw" type="password" placeholder="senha123">
+        </label>
+        <div id='coll_2_-box'>
+            <label id='show-pbox'>
+                <input type='checkbox' @change='showPws()'> Mostrar Senha
             </label>
-            <label id="user-terms"> 
-                <input id="terms" type="checkbox"> le, e aceito os <button id="terms-link">termos de uso</button>
-            </label>
-            <button id="bnt-sigin" @click="toValidPage()">Entrar</button>
-            <button id="bnt-login" @click="toLoginPage()">Já tenho uma conta</button>
+            <p id="to-login-link" href="" @click="toLogin()">Já tenho uma conta</p>
         </div>
+        <button @click="sigin()" id="bnt-sigin">Criar</button>
+    </main>
     </div>
 </template>
+
 
 <style scoped>
     #sigin-page {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        align-content: center;
+        align-items: center;
         width: 100vw;
-        height: 85vh;
+        height: 90vh;
+    }                   
+    main { 
+        width: 90%;
     }
+
     img {
         display: block;
-        width: 10vw;
-        margin: auto auto;
+        width: 150px;
+        margin: 0 auto;
+        margin-bottom: 10px;
         align-self: center;
     }
-
-        h1 {
-            display: block;
-            width: 100%;
-            text-align: center;
-            font: 800 1.2rem/1 "Manjari";
-            color: #3D677A;
-            margin-top: 5px;
-            margin-bottom: 50px;
-        }
-
-    #page-form {
+    #error-msg {
         display: block;
+        transition: .6s;
         width: 100%;
+        opacity: 0;
+        text-align: center;
+        background-color: rgb(236, 127, 127);
+        font: bolder .8rem/1 "Manjari";
+        color: #f3f3f3;
+        padding: 3%;
     }
 
-    label {
+    #email-box, #passw-box{
         display: block;
-        width: 87%;
-        margin: 6% auto;
-        color: #000;
-        font: normal 1rem/1 "Manjari";
+        font: normal .9rem/1 "Manjari";
+        width: 100%;
+        margin-top: 20px;
+        outline: none;
     }
-        #email {
-            display: block;
+        #email-box input[type='email'] {
             border: 1px solid #c4c4c4;
-            background-color: #d5d5d5;
-            font: normal 1rem/1 "Manjari";
-            width: 100%;
-            padding: 5% 4%;
-            margin-top: 5px;
-            outline: none;
-        }
-
-        #passw {
-            display: grid;
-            grid-template-columns: 75% 25%;
-            border: 1px solid #c4c4c4;
-            background-color: #d5d5d5;
-            
-            width: 100%;
-            padding: 5% 4%;
-            margin-top: 5px;
-        }
-            #password{
-                font: normal 1rem/1 "Manjari";
-                border: none;
-                background: transparent;
-                outline: none;
-            }
-
-            #show-pw {
-                display: block;
-                width: 100%;
-                text-align: right;
-                margin: auto auto;
-                font: bolder .9rem/1 "Manjari";
-                cursor: pointer;
-                user-select: none;
-                background: none;
-                border: none;
-                outline: none;
-            }
-        #user-terms {
-            font: bolder 1rem/1 "Manjari";
-            cursor: pointer;
-        }
-            #terms-link {
-                border: none;
-                background: none;
-                outline: none;
-                color: #3D677A;
-                cursor: pointer;
-                font-weight: 800;
-            }
-        #bnt-sigin, #bnt-login {
+            background-color: #e8e7e7;
             display: block;
-            background-color: #3D677A;
-            border: 1px solid #3D677A;
-            width: 87%;
-            padding: 4%;
-            margin: 15% auto 0 auto;
-            color: var(--whit-color);
-            font: bolder 1rem/1 "Manjari";
-            cursor: pointer;
+            font: normal .9rem/1 "Manjari";
+            width: 100%;
+            padding: 5% 1%;
+            margin-top: 5px;
+            outline-color: #3D677A;
         }
 
-        #bnt-login {
-            margin: 0 auto;
-            background: none;
-            border: none;
-            outline: none;
-            color: #919191;
+        #passw-box input[type='password'], #passw-box input[type='text'] {
+            border: 1px solid #c4c4c4;
+            background-color: #e8e7e7;
+            display: block;
+            font: normal .9rem/1 "Manjari";
+            width: 100%;
+            padding: 5% 1%;
+            margin-top: 5px;
+            outline-color: #3D677A;
+        }
+
+    #coll_2_-box {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        font: bolder .8rem/1 "Manjari";
+        margin-top: 8px;
+    }
+        #show-pbox,#to-login-link {cursor: pointer; user-select: none;}
+        input[type='checkbox'] {
+            vertical-align: middle;
+        }
+        #to-login-link{
             text-decoration: underline;
+            color: blue;
         }
-
+    #bnt-sigin {
+        display: block;
+        background-color: var(--gren-color);
+        border: 1px solid var(--gren-color);
+        width: 100%;
+        padding: 4% 10px;
+        text-align: center;
+        margin: 40px auto 2% auto;
+        color: var(--whit-color);
+        font: bolder 1rem/1 "Manjari";
+        cursor: pointer;
+    }
+           
 </style>
