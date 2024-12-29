@@ -8,6 +8,7 @@ import { API_CONFIGS } from './api.config.mjs';
 
 //controllers
 import { loginController } from './controllers/login_controller.mjs';
+import { siginController } from './controllers/sigin_controller.mjs';
 import { validLoginController } from './controllers/validLogin_controller.mjs';
 
 const app = express();
@@ -19,10 +20,14 @@ app.use(cors({
 }));
 
 app.post('/login',loginController);
+app.post('/sigin',siginController);
 app.post('/valid',validLoginController);
 
 app.use((error,req,res,next)=> {
-    return res.status(error.status).json({message:`Internal Server Error: ${error.type}`});
+    return res.status(200).json({
+        code: 300,
+        message:`Parse Json Error`
+    });
 });
 
 
