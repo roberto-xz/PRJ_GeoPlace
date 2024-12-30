@@ -1,6 +1,6 @@
 
 import {sequelize}  from './sequelize.mjs';
-// import { UserModel } from './models/user_model.mjs';
+import { UserModel } from './models/user_model.mjs';
 import {ApiErros}   from './Erros/ApiErros.mjs'
 import express from 'express'
 import cors from 'cors'
@@ -34,7 +34,7 @@ app.use((error,req,res,next)=> {
 const startSequelize = async ()=> {
     try {
         await sequelize.authenticate();
-        await sequelize.sync();
+        await sequelize.sync({force:true});
 
     }catch(error){ 
         throw new ApiErros('Server Internal Error - Mysql-Error',403);

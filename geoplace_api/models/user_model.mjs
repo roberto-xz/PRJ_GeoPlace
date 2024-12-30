@@ -11,7 +11,7 @@ export const UserModel = sequelize.define('users', {
 
     full_name: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
 
     user_name: {
@@ -78,7 +78,17 @@ export const UserModel = sequelize.define('users', {
         type: DataTypes.BOOLEAN,
         defaultValue: false 
     },
+    user_code: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
 
+    user_code_try: {
+        type: DataTypes.INTEGER,
+        defaultValue: 4,
+        allowNull: true
+    },
+    
     user_ads: {
         type: DataTypes.INTEGER,
         allowNull: true,
