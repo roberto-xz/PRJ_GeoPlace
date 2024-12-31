@@ -36,7 +36,11 @@
         let email_el = document.getElementById('usr-email');
         let passw_el = document.getElementById('usr-passw');
         let error_el = document.getElementById('error-msg');
+        let lgbnt_el = document.getElementById('bnt-sigin');
         let response = undefined;
+
+        lgbnt_el.disabled = true;
+        lgbnt_el.id = 'bnt-sigin-disabled';
 
         try { // tenta uma conexão com a API
             response = await fetch(api_url+'/sigin', {
@@ -53,6 +57,8 @@
             error_el.style.opacity = 1;
             error_el.innerText = 'Internal error, offline server'
             setTimeout(()=>{error_el.style.opacity = 0;},3000)
+            lgbnt_el.disabled = false;
+            lgbnt_el.id = 'bnt-sigin';
             return;
         }
         
@@ -63,6 +69,8 @@
                     error_el.style.opacity = 1;
                     error_el.innerText = 'OK, Redirecionando'
                     window.localStorage.setItem('geoplace_email',user_mail);
+                    lgbnt_el.disabled = false;
+                    lgbnt_el.id = 'bnt-sigin';
                     setTimeout(()=>{
                         error_el.style.opacity = 0;
                         router.push('/validEmail');
@@ -72,18 +80,24 @@
                     error_el.style.opacity = 1;
                     error_el.innerText = 'Email e Senha são inválidos'
                     setTimeout(()=>{error_el.style.opacity = 0;},3000)
+                    lgbnt_el.disabled = false;
+                    lgbnt_el.id = 'bnt-sigin';
                 break;
                 
                 case 102:
                     error_el.style.opacity = 1;
                     error_el.innerText = 'Esse email já foi registrado'
                     setTimeout(()=>{error_el.style.opacity = 0;},3000)
+                    lgbnt_el.disabled = false;
+                    lgbnt_el.id = 'bnt-sigin';
                 break;
                 
                 case 103:
                     error_el.style.opacity = 1;
                     error_el.innerText = 'Usuário não registrado, tente mais tarde'
                     setTimeout(()=>{error_el.style.opacity = 0;},3000)
+                    lgbnt_el.disabled = false;
+                    lgbnt_el.id = 'bnt-sigin';
                 break;
             }
         }
@@ -214,5 +228,21 @@
         font: bolder 1rem/1 "Manjari";
         cursor: pointer;
     }
-           
+
+    #bnt-sigin-disabled {
+        display: block;
+        background-color: #70a573;
+        border: 1px solid  #70a573;
+        width: 100%;
+        padding: 4% 10px;
+        text-align: center;
+        margin: 40px auto 2% auto;
+        color: transparent;
+        font: bolder 1rem/1 "Manjari";
+        cursor: pointer;
+        background-image: url('/res/loading.gif');
+        background-size: 6%;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+    }      
 </style>
