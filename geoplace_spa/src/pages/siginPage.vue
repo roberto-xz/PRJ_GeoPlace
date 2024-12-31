@@ -38,7 +38,7 @@
         let error_el = document.getElementById('error-msg');
         let lgbnt_el = document.getElementById('bnt-sigin');
         let response = undefined;
-
+        
         lgbnt_el.disabled = true;
         lgbnt_el.id = 'bnt-sigin-disabled';
 
@@ -66,22 +66,22 @@
             let result = await response.json();
             switch(result.code) {
                 case 200:
-                    error_el.style.opacity = 1;
-                    error_el.innerText = 'OK, Redirecionando'
-                    window.localStorage.setItem('geoplace_email',user_mail);
-                    lgbnt_el.disabled = false;
-                    lgbnt_el.id = 'bnt-sigin';
+                    error_el.style.opacity = 0;
+                    window.localStorage.setItem('geoplace_email',email_el.value);
                     setTimeout(()=>{
                         error_el.style.opacity = 0;
+                        lgbnt_el.disabled = true;
+                        lgbnt_el.id = 'bnt-sigin';
                         router.push('/validEmail');
-                        return;
                     },2000);
+                    return
                 case 100:
                     error_el.style.opacity = 1;
                     error_el.innerText = 'Email e Senha são inválidos'
                     setTimeout(()=>{error_el.style.opacity = 0;},3000)
                     lgbnt_el.disabled = false;
                     lgbnt_el.id = 'bnt-sigin';
+                    return
                 break;
                 
                 case 102:
@@ -90,6 +90,7 @@
                     setTimeout(()=>{error_el.style.opacity = 0;},3000)
                     lgbnt_el.disabled = false;
                     lgbnt_el.id = 'bnt-sigin';
+                    return
                 break;
                 
                 case 103:
@@ -98,6 +99,7 @@
                     setTimeout(()=>{error_el.style.opacity = 0;},3000)
                     lgbnt_el.disabled = false;
                     lgbnt_el.id = 'bnt-sigin';
+                    return
                 break;
             }
         }
