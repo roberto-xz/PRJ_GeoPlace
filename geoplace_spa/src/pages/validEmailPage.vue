@@ -3,7 +3,7 @@
 <template>
     <div id="valid-page">
         <header>
-            <img src="/res/simple_logo_1.svg" alt="geoplace image logo"/>
+            <img src="/res/logo.png" alt="geoplace image logo"/>
             <h1>Validação de email</h1>
         </header>
         <div id="page-form">
