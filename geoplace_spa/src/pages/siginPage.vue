@@ -2,6 +2,9 @@
 <script setup>
     import {useRouter} from 'vue-router'
     import {onBeforeMount} from 'vue'
+    import API_CONFIGS from './../../api.config.mjs';
+    import sha1 from "sha1";
+    const api_url = `http://${API_CONFIGS.API_HOST}:${API_CONFIGS.API_PORT}`;
     const router = useRouter();
 
     onBeforeMount(async ()=> {
@@ -29,7 +32,64 @@
         }
     })
 
-    const sigin = () => {}
+    const sigin = async () => {
+        let email_el = document.getElementById('usr-email');
+        let passw_el = document.getElementById('usr-passw');
+        let error_el = document.getElementById('error-msg');
+        let response = undefined;
+
+        try { // tenta uma conexão com a API
+            response = await fetch(api_url+'/sigin', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify({
+                    user_mail: email_el.value,
+                    user_pass: sha1(passw_el.value)
+                })
+            });
+        }catch(e){
+            error_el.style.opacity = 1;
+            error_el.innerText = 'Internal error, offline server'
+            setTimeout(()=>{error_el.style.opacity = 0;},3000)
+            return;
+        }
+        
+        if (response.ok) {
+            let result = await response.json();
+            switch(result.code) {
+                case 200:
+                    error_el.style.opacity = 1;
+                    error_el.innerText = 'OK, Redirecionando'
+                    window.localStorage.setItem('geoplace_email',user_mail);
+                    setTimeout(()=>{
+                        error_el.style.opacity = 0;
+                        router.push('/validEmail');
+                        return;
+                    },2000);
+                case 100:
+                    error_el.style.opacity = 1;
+                    error_el.innerText = 'Email e Senha são inválidos'
+                    setTimeout(()=>{error_el.style.opacity = 0;},3000)
+                break;
+                
+                case 102:
+                    error_el.style.opacity = 1;
+                    error_el.innerText = 'Esse email já foi registrado'
+                    setTimeout(()=>{error_el.style.opacity = 0;},3000)
+                break;
+                
+                case 103:
+                    error_el.style.opacity = 1;
+                    error_el.innerText = 'Usuário não registrado, tente mais tarde'
+                    setTimeout(()=>{error_el.style.opacity = 0;},3000)
+                break;
+            }
+        }
+    }
+
+
     const showPws = ()=>{
         let pass_input = document.getElementById("usr-passw");
         pass_input.type = (pass_input.type == 'password') ? 'text' : 'password';

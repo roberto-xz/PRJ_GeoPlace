@@ -74,6 +74,14 @@ A requisição deve ser enviada no formato JSON com os seguintes campos:
     "message": 'Ok'
 }
 ```
+#### Formato do JSON ou dados inválidos (Código 100):
+```json
+{
+    "code": 100, 
+    "message": "Invalid Request Format"
+}
+```
+
 #### email/cpf/user. já resgistrados (Código 102 )
 ```json
 {
@@ -88,15 +96,6 @@ A requisição deve ser enviada no formato JSON com os seguintes campos:
 {
     "code": 103, 
     "message": "Erro On Register New User",
-}
-```
-
-#### Usuário registrado, Mas o códico de validação não foi enviado.
-
-```json
-{
-    "code": 104, 
-    "message": "Erro On Send Validation Code",
 }
 ```
 
