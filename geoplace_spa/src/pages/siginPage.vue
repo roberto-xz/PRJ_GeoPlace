@@ -38,7 +38,7 @@
         let error_el = document.getElementById('error-msg');
         let lgbnt_el = document.getElementById('bnt-sigin');
         let response = undefined;
-        
+        router.push('/active?token=asdad')
         lgbnt_el.disabled = true;
         lgbnt_el.id = 'bnt-sigin-disabled';
 
@@ -66,14 +66,16 @@
             let result = await response.json();
             switch(result.code) {
                 case 200:
-                    error_el.style.opacity = 0;
-                    window.localStorage.setItem('geoplace_email',email_el.value);
+                    error_el.style.opacity = 1;
+                    error_el.style.backgroundColor = 'seagreen';
+                    error_el.innerText = 'Cheque seu Email para validar sua conta!!'
+                    
                     setTimeout(()=>{
+                        error_el.style.backgroundColor = 'indianred';
                         error_el.style.opacity = 0;
                         lgbnt_el.disabled = true;
                         lgbnt_el.id = 'bnt-sigin';
-                        router.push('/validEmail');
-                    },2000);
+                    },5000);
                     return
                 case 100:
                     error_el.style.opacity = 1;
