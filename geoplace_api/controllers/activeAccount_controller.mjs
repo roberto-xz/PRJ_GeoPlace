@@ -18,10 +18,10 @@ export const activeAccountController = async (req,res) =>{
             );
             redis.del(token);
             redis.disconnect();   
-            return res.status(200).json(returns.ok);
+            return res.status(200).json(returns.success());
         }
-        return res.status(200).json(returns.token_expirated);
+        return res.status(200).json(returns.error_token_expired());
     }
 
-    return res.status(200).json(returns.invalid_request); 
+    return res.status(200).json(returns.error_invalid_request()); 
 }
