@@ -34,7 +34,7 @@ const prepare_email = (numberToken,toEmail)=> {
     
     status.then(()=>{return true;})
     status.catch((e)=> {
-        throw new ApiErros('Server Internal Error - Email-Utilit',403);
+        throw new ApiErros('Server Internal Error - Email-Not-Send',403);
     }); 
 }
 
@@ -57,7 +57,7 @@ export const siginController = async (req, res)=> {
         let userExists = await checkUserExists(user_mail); 
         if ( ! userExists ) {
             const redis_c = await redis_connect(); // tenta se connectar ao redis
-            // const sendm_s = await prepare_email(token,user_mail); // envia uma url para ativação via email
+            const sendm_s = await prepare_email(token,user_mail); // envia uma url para ativação via email
 
             // cria o usuário no banco de dados
             UserModel.create({
