@@ -13,7 +13,7 @@ export const isValidHashSha1 = (hash) => {
     return validator.isHash(hash,'sha1')
 }
 
-export const CreatMagicNumber = (len)=> {
+export const numberToken = (len)=> {
     let magic = '';
     for (let x=0; x<len; x++) 
         magic += (Math.floor(Math.random()*9)+1);

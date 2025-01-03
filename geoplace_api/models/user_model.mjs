@@ -78,16 +78,6 @@ export const UserModel = sequelize.define('users', {
         type: DataTypes.BOOLEAN,
         defaultValue: false 
     },
-    user_code: {
-        type: DataTypes.STRING,
-        allowNull: true
-    },
-
-    user_code_try: {
-        type: DataTypes.INTEGER,
-        defaultValue: 4,
-        allowNull: true
-    },
     
     user_ads: {
         type: DataTypes.INTEGER,

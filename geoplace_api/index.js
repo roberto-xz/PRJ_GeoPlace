@@ -10,6 +10,7 @@ import { API_CONFIGS } from './api.config.mjs';
 import { loginController } from './controllers/login_controller.mjs';
 import { siginController } from './controllers/sigin_controller.mjs';
 import { validLoginController } from './controllers/validLogin_controller.mjs';
+import {activeAccountController} from './controllers/activeAccount_controller.mjs';
 
 const app = express();
 app.use(express.json())
@@ -22,6 +23,7 @@ app.use(cors({
 app.post('/login',loginController);
 app.post('/sigin',siginController);
 app.post('/valid',validLoginController);
+app.post('/active',activeAccountController);
 
 app.use((error,req,res,next)=> {
     return res.status(200).json({
