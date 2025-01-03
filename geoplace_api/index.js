@@ -11,6 +11,7 @@ import { loginController } from './controllers/login_controller.mjs';
 import { siginController } from './controllers/sigin_controller.mjs';
 import { validLoginController } from './controllers/validLogin_controller.mjs';
 import {activeAccountController} from './controllers/activeAccount_controller.mjs';
+import returns from './returns/returns.mjs';
 
 const app = express();
 app.use(express.json())
@@ -26,10 +27,7 @@ app.post('/valid',validLoginController);
 app.post('/active',activeAccountController);
 
 app.use((error,req,res,next)=> {
-    return res.status(200).json({
-        code: 300,
-        message:`Parse Json Error`
-    });
+    return res.status(200).json(returns.error_json_format());
 });
 
 
