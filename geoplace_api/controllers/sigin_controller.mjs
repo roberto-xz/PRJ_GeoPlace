@@ -57,14 +57,14 @@ export const siginController = async (req, res)=> {
         let userExists = await checkUserExists(user_mail); 
         if ( ! userExists ) {
             const redis_c = await redis_connect(); // tenta se connectar ao redis
-            const sendm_s = await prepare_email(token,user_mail); // envia uma url para ativação via email
+            // const sendm_s = await prepare_email(token,user_mail); // envia uma url para ativação via email
 
             // cria o usuário no banco de dados
             UserModel.create({
                 user_email: user_mail,
                 user_pass:  user_pass
             });
-            redis_c.set(token,user_mail,{ex:29});
+            redis_c.set(token,user_mail,{EX:30});
             return res.status(200).json({code: 200, message: 'ok'});
         }
 

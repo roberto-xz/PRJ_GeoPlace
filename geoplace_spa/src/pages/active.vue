@@ -1,103 +1,69 @@
 
+<script setup>
+import { onBeforeMount } from "vue";
+import { useRoute } from 'vue-router'
+const route = useRoute()
+
+onBeforeMount(()=>{
+    console.log(route.params.token)
+})
+</script>
 
 <template>
-    <div id="valid-page">
+    <div id="active-page">
         <header>
-            <img src="/res/logo.png" alt="geoplace image logo"/>
-            <h1>Validação de email</h1>
+            <i class='material-icons'>&#xe86c;</i>
+            <h1> Sua conta foi criada com <br>Sucesso!</h1>
         </header>
-        <div id="page-form">
-            <h2>Digite o código enviado para o email</h2>
-            <span>*****-lano@gmail.com</span>
-            <div id="codes">
-                <input class="code_item" maxlength="1"/> <input class="code_item" maxlength="1"/>
-                <input class="code_item" maxlength="1"/> <input class="code_item" maxlength="1"/>
-                <input class="code_item" maxlength="1"/> <input class="code_item" maxlength="1"/>
-            </div>
-            <p> reenviar código em <i>1:30 s</i></p>
-            <button id="bnt-valid">Validar</button>
-        </div>
+        <p>Agora você pode aproveitar todas as vantagens que o geoplace <br>tem a oferecer</p>
+        <button id='bnt-to-app'>Aproveitar</button>
     </div>
 </template>
 
 <style scoped>
-    #valid-page {
+    #active-page {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
         align-content: center;
         width: 100vw;
-        height: 85vh;
+        height: 80vh;
     }
-    img {
-        display: block;
-        width: 10vw;
-        margin: auto auto;
-        align-self: center;
-    }
-
-        h1 {
+        header {
             display: block;
-            width: 100%;
-            text-align: center;
-            font: 800 1.2rem/1 "Manjari";
-            color: #3D677A;
-            margin-top: 5px;
-            margin-bottom: 30px;
+            width: 60%;
         }
-
-    #page-form {
-        display: block;
-        width: 100%;
-    }
-
-        h2, div span {
-            display: block;
-            width: 100%;
-            color: #000;
-            font: bolder 1rem/1 "Manjari";
-            text-align: center;
-        }
-        
-        div span {font-weight: 500; color:#919191; margin-top: 8px;}
-        #codes {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-top: 20px;
-        }
-            #codes input {
+            i {
                 display: block;
-                width: 50px;
-                border: none;
-                background-color: #cecece;
-                padding: 12px;
-                margin: 10px;
+                width: 100%;
                 text-align: center;
-                font: bolder 1rem/1 "Manjari";
+                font-size: 3.5rem;
+                color: seagreen;
+                margin-bottom: 25px;
             }
-
-        p {
-            display: block;
-            width: 100%;
-            text-align: center;
-            color:#919191;
-            margin-top: 10px;
-            font: 500 1rem/1 "Manjari";
-        }
-            p i {
-                font-weight: bolder;
-                font-style: normal;
+            h1 {
+                display: block;
+                text-align: center;
+                font: bolder 1.4rem/1 "Manjari";
             }
-        #bnt-valid {
-            display: block;
-            background-color: #3D677A;
-            border: 1px solid #3D677A;
-            width: 87%;
-            padding: 4%;
-            margin: 15% auto 0 auto;
-            color: var(--whit-color);
-            font: bolder 1rem/1 "Manjari";
-            cursor: pointer;
-        }
+            p {
+                width: 70%;
+                display: block;
+                text-align: center;
+                margin-top: 25px;
+                color: dimgray;
+                font: normal 1rem/1 "Manjari";
+            }
+     #bnt-to-app {
+        display: block;
+        background-color: black;
+        border: 1px solid black;
+        width: 70%;
+        padding: 3% 10px;
+        text-align: center;
+        margin: 40px auto 2% auto;
+        color: var(--whit-color);
+        font: bolder .9rem/1 "Manjari";
+        cursor: pointer;
+    }
 </style>

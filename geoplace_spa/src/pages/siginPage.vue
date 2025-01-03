@@ -38,7 +38,8 @@
         let error_el = document.getElementById('error-msg');
         let lgbnt_el = document.getElementById('bnt-sigin');
         let response = undefined;
-        router.push('/active?token=asdad')
+        router.push('/active/asdasd')
+        return;
         lgbnt_el.disabled = true;
         lgbnt_el.id = 'bnt-sigin-disabled';
 
