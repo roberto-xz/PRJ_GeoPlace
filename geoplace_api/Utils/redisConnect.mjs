@@ -2,12 +2,12 @@
 import { createClient } from "redis";
 
 export const redis_connect = async ()=> {
-    const redis_c = createClient();
-    
-    redis_c.on('error',()=> {
-        throw new ApiErros('Server Internal Error - Redis-Utilit',403);
-    });
-
-    await redis_c.connect();
+    let redis_c = createClient();
+    try { 
+        await redis_c.connect();
+    } catch(e){
+        throw new Error("Redis Connect Error");
+        return;
+    }
     return redis_c;
 }
