@@ -13,7 +13,7 @@
 ```json
 {
   "user_mail": "string",
-  "user_pass": "string" // SHA1 hash
+  "user_pass": "string|SHA1 hash"
 }
 ```
 
@@ -66,7 +66,7 @@
 ```json
 {
   "user_mail": "string",
-  "user_pass": "string" // SHA1 hash
+  "user_pass": "string | SHA1 hash"
 }
 ```
 
@@ -126,7 +126,7 @@
 
 ```json
 {
-  "token": "string" // JWT
+  "token": "string | JWT"
 }
 ```
 
@@ -189,7 +189,7 @@
 
 ```json
 {
-  "token": "string" // Temporary token
+  "token": "string | Temporary token"
 }
 ```
 
@@ -242,16 +242,20 @@
 - **101: Invalid Data**
 **Descrição:** Os dados fornecidos na requisição são inválidos ou não correspondem ao que a API espera. Por exemplo, um e-mail ou senha incorretos no processo de login ou signup.
 <br>
+
 - **102: Duplicate Data**
 **Descrição:** O valor fornecido já existe no sistema e não pode ser registrado novamente. Usado, por exemplo, para indicar que o e-mail informado já está registrado.
     - **Campos adicionais:** `type` especifica o tipo de dado duplicado (ex: "Email", "Username").
     <br>
+    
 - **103: Operation Failed**
 **Descrição:** Um erro genérico ocorreu no servidor durante o processamento da requisição. Isso pode ser devido a falhas internas, como problemas no banco de dados ou serviços auxiliares (ex: Redis, Nodemailer).
 <br>
+
 - **104: Token Expired**
  **Descrição:** O token fornecido para autenticação ou validação expirou. Normalmente usado em rotas que requerem tokens JWT para verificar a autenticidade ou validade de uma sessão.
  <br>
+ 
 - **300: Invalid JSON Format**
  **Descrição:** O formato do JSON enviado na requisição está inválido. A API não conseguiu processar a entrada devido a problemas de formatação (como chaves faltando ou malformadas).
 
