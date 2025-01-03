@@ -1,152 +1,258 @@
+# API Documentation
 
+### Endpoints 
 
-# API Routers Documentation
+## 1. **Login**
 
-A seguir estão descritas as rotas da API, seus formatos de requisição e resposta, além dos possíveis erros.
+- **URL:** `/api/login`
+- **Method:** `POST`
+- **Description:** Autentica o usuário e retorna um token JWT em caso de sucesso.
+
+#### Request Body
+
+```json
+{
+  "user_mail": "string",
+  "user_pass": "string" // SHA1 hash
+}
+```
+
+#### Possible Responses
+
+- **Success:**
+    
+    ```json
+    {
+      "code": 200,
+      "message": "Ok",
+      "data": {
+        "token": "jwt_token"
+      }
+    }
+    ```
+    
+- **Errors:**
+    - `error_invalid_input` (Código: 101)  
+        Exemplo:
+        
+        ```json
+        {
+          "code": 101,
+          "message": "Invalid Data"
+        }
+        ```
+        
+    - `error_operation_failed` (Código: 103)  
+        Exemplo:
+        
+        ```json
+        {
+          "code": 103,
+          "message": "Operation Failed"
+        }
+        ```
+        
 
 ---
 
-## **POST /login**
+## 2. **Sign In**
 
-Rota responsável por verificar os dados de login do usuário (email e senha). Retorna um JSON contendo um token JWT em caso de sucesso.
+- **URL:** `/api/sigin`
+- **Method:** `POST`
+- **Description:** Registra um novo usuário. Retorna um simples `success` em caso de sucesso.
 
-### **Requisição**
-A requisição deve ser enviada no formato JSON com os seguintes campos:
+#### Request Body
 
 ```json
 {
-    "user_mail": "<valid-email-format>",
-    "user_pass": "<SHA1-password-hash>"
+  "user_mail": "string",
+  "user_pass": "string" // SHA1 hash
 }
 ```
 
-- **user_mail**: O email do usuário (deve estar em formato válido).
-- **user_pass**: A senha do usuário em formato hash SHA1.
+#### Possible Responses
 
-### **Respostas**
-
-#### Em caso de sucesso (Código 200):
-```json
-{
-    "code": 200, 
-    "user_token": "<JWT>"
-}
-```
-
-#### Formato do JSON ou dados inválidos (Código 100):
-```json
-{
-    "code": 100, 
-    "message": "Invalid Request Format"
-}
-```
-
-#### Email ou senha inválidos (Código 101):
-```json
-{
-    "code": 101, 
-    "message": "Wrong Login Data"
-}
-```
+- **Success:**
+    
+    ```json
+    {
+      "code": 200,
+      "message": "Ok"
+    }
+    ```
+    
+- **Errors:**
+    - `error_invalid_input` (Código: 101)  
+        Exemplo:
+        
+        ```json
+        {
+          "code": 101,
+          "message": "Invalid Data"
+        }
+        ```
+        
+    - `error_duplicate_entry` (Código: 102)  
+        Exemplo:
+        
+        ```json
+        {
+          "code": 102,
+          "message": "Duplicate Data",
+          "type": "Email"
+        }
+        ```
+        
+    - `error_operation_failed` (Código: 103)  
+        Exemplo:
+        
+        ```json
+        {
+          "code": 103,
+          "message": "Operation Failed"
+        }
+        ```
+        
 
 ---
 
-## **POST /sigin**
-Rota responsável por criar um novo usuário. 
+## 3. **Valid**
 
-A requisição deve ser enviada no formato JSON com os seguintes campos:
+- **URL:** `/api/valid`
+- **Method:** `POST`
+- **Description:** Valida um token JWT e retorna informações sobre o usuário.
+
+#### Request Body
 
 ```json
 {
-    "user_mail": "<valid-email-format>",
-    "user_pass": "<SHA1-password-hash>"
-}
-```
-- **user_mail**: O email do usuário (deve estar em formato válido).
-- **user_pass**: A senha do usuário em formato hash SHA1.
-
-### **Respostas**
-
-#### Em caso de sucesso (Código 200):
-```json
-{
-    "code": 200, 
-    "message": 'Ok'
-}
-```
-#### Formato do JSON ou dados inválidos (Código 100):
-```json
-{
-    "code": 100, 
-    "message": "Invalid Request Format"
+  "token": "string" // JWT
 }
 ```
 
-#### email/cpf/user. já resgistrados (Código 102 )
-```json
-{
-    "code": 102, 
-    "message": "Duplicate Data",
-    "type": "CPF/EMAIL/USER"
-}
-```
+#### Possible Responses
 
-#### O usuário Não pode ser Registrado (Código 103)
-```json
-{
-    "code": 103, 
-    "message": "Erro On Register New User",
-}
-```
+- **Success:**
+    
+    ```json
+    {
+      "code": 200,
+      "message": "Ok",
+      "data": {
+        "user_id": "string",
+        "user_mail": "string"
+      }
+    }
+    ```
+    
+- **Errors:**
+    - `error_invalid_input` (Código: 101)  
+        Exemplo:
+        
+        ```json
+        {
+          "code": 101,
+          "message": "Invalid Data"
+        }
+        ```
+        
+    - `error_token_expired` (Código: 104)  
+        Exemplo:
+        
+        ```json
+        {
+          "code": 104,
+          "message": "Token Expired"
+        }
+        ```
+        
+    - `error_operation_failed` (Código: 103)  
+        Exemplo:
+        
+        ```json
+        {
+          "code": 103,
+          "message": "Operation Failed"
+        }
+        ```
+        
 
 ---
 
-## **POST /valid**
+## 4. **Active**
 
-Rota responsável por validar tokens de login. Essa rota verifica se o token enviado é válido.
+- **URL:** `/api/active`
+- **Method:** `POST`
+- **Description:** Ativa a conta de um usuário usando um token temporário. Retorna `success` em caso de sucesso.
 
-### **Requisição**
-A requisição deve conter o token JWT no corpo da requisição:
+#### Request Body
 
 ```json
 {
-    "user_token": "<JWT>"
+  "token": "string" // Temporary token
 }
 ```
 
-### **Respostas**
+#### Possible Responses
 
-#### Token válido (Código 200):
-```json
-{
-    "code": 200,
-    "message": "ok"
-}
-```
-
-#### Token inválido ou erro de verificação (Código 100):
-```json
-{
-    "code": 100,
-    "message": "Invalid Request Format"
-}
-```
+- **Success:**
+    
+    ```json
+    {
+      "code": 200,
+      "message": "Ok"
+    }
+    ```
+    
+- **Errors:**
+    - `error_invalid_input` (Código: 101)  
+        Exemplo:
+        
+        ```json
+        {
+          "code": 101,
+          "message": "Invalid Data"
+        }
+        ```
+        
+    - `error_operation_failed` (Código: 103)  
+        Exemplo:
+        
+        ```json
+        {
+          "code": 103,
+          "message": "Operation Failed"
+        }
+        ```
+        
 
 ---
 
+## **Códigos de Sucesso**
 
-## **Códigos de Erro da API**
+- **200: Ok**
+ **Descrição:** A operação foi bem-sucedida. Esse código é retornado para indicar que a solicitação foi processada com sucesso.
 
-- **200 (Ok)**: A requisição foi bem-sucedida.
-  
-- **100 (Invalid Request Format)**: O formato do JSON ou os dados fornecidos são inválidos. Isso pode incluir:
-  - Email com formato inválido.
-  - Senha não em formato hash SHA1.
-  - Estrutura do JSON malformada.
+### **Códigos de Erro**
 
-- **101 (Invalid Data)**: Os dados fornecidos são válidos, mas não correspondem aos registros no banco de dados (ex.: email ou senha incorretos).
+- **100: Invalid Request Format**
+    **Descrição:** O formato da requisição é inválido ou não segue o padrão esperado pela API. Pode ocorrer quando campos obrigatórios estão faltando ou com formato incorreto.
+    <br>
+    
+- **101: Invalid Data**
+**Descrição:** Os dados fornecidos na requisição são inválidos ou não correspondem ao que a API espera. Por exemplo, um e-mail ou senha incorretos no processo de login ou signup.
+<br>
+- **102: Duplicate Data**
+**Descrição:** O valor fornecido já existe no sistema e não pode ser registrado novamente. Usado, por exemplo, para indicar que o e-mail informado já está registrado.
+    - **Campos adicionais:** `type` especifica o tipo de dado duplicado (ex: "Email", "Username").
+    <br>
+- **103: Operation Failed**
+**Descrição:** Um erro genérico ocorreu no servidor durante o processamento da requisição. Isso pode ser devido a falhas internas, como problemas no banco de dados ou serviços auxiliares (ex: Redis, Nodemailer).
+<br>
+- **104: Token Expired**
+ **Descrição:** O token fornecido para autenticação ou validação expirou. Normalmente usado em rotas que requerem tokens JWT para verificar a autenticidade ou validade de uma sessão.
+ <br>
+- **300: Invalid JSON Format**
+ **Descrição:** O formato do JSON enviado na requisição está inválido. A API não conseguiu processar a entrada devido a problemas de formatação (como chaves faltando ou malformadas).
 
-- **102 (Duplicate Data)**: Os dados fornencidos são válidos, porém já existe na base de dados e são tidos
-como únicos.
-
-- **300 (Parse Json Error)**: O servidor recebu um json com uma sintax inválida e não conseguio executar um parse.
+---
