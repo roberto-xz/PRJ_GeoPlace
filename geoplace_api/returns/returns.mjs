@@ -29,12 +29,17 @@ export default {
 
   error_operation_failed: () => ({
     code: 103,
-    message: "Operation Failed"
+    message: "Internal Server Error"
   }),
 
   error_token_expired: () => ({
     code: 104,
     message: "Token Expired"
+  }),
+
+  error_account_not_actived: () => ({
+    code: 105,
+    message: "This Account Is Not Actived"
   }),
 
   error_json_format: () => ({

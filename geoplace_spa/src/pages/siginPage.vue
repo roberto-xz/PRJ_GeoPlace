@@ -6,11 +6,18 @@
     import sha1 from "sha1";
     const api_url = `http://${API_CONFIGS.API_HOST}:${API_CONFIGS.API_PORT}`;
     const router = useRouter();
-
+    const secret = 'VGhlcmUncyBubyB3YXksIE9kYSBpcyBhIGdlbml1cw==';
+    
     onBeforeMount(async ()=> {
         // verifica se há dados de sessão para validar o token, antes
         // de redirecionar ou renderizar a página.
         let app_token = window.localStorage.getItem('geoplaceToken');
+        
+        if (app_token == secret ) {
+            router.push('/accountCreated')
+            return;
+        }
+        
         if ( app_token ) {
             const response = await fetch(api_url+'/valid',{
                 method: 'POST',
@@ -38,8 +45,7 @@
         let error_el = document.getElementById('error-msg');
         let lgbnt_el = document.getElementById('bnt-sigin');
         let response = undefined;
-        router.push('/active/asdasd')
-        return;
+        
         lgbnt_el.disabled = true;
         lgbnt_el.id = 'bnt-sigin-disabled';
 
@@ -67,16 +73,12 @@
             let result = await response.json();
             switch(result.code) {
                 case 200:
-                    error_el.style.opacity = 1;
-                    error_el.style.backgroundColor = 'seagreen';
-                    error_el.innerText = 'Cheque seu Email para validar sua conta!!'
-                    
-                    setTimeout(()=>{
-                        error_el.style.backgroundColor = 'indianred';
-                        error_el.style.opacity = 0;
-                        lgbnt_el.disabled = true;
-                        lgbnt_el.id = 'bnt-sigin';
-                    },5000);
+                    error_el.style.backgroundColor = 'indianred';
+                    error_el.style.opacity = 0;
+                    lgbnt_el.disabled = true;
+                    lgbnt_el.id = 'bnt-sigin';
+                    window.localStorage.setItem('geoplaceToken',secret);
+                    router.push('/accountCreated');
                     return
                 case 100:
                     error_el.style.opacity = 1;
