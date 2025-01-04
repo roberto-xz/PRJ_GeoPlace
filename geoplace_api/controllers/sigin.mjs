@@ -7,6 +7,7 @@ import { mailTemplace } from "../Utils/mailTemplate.mjs";
 import nodemailer from "nodemailer";
 import returns from '../returns/returns.mjs';
 import dotenv from 'dotenv'
+import { Transaction } from "sequelize";
 dotenv.config();
 
 
@@ -30,13 +31,13 @@ const sendEmail = (numberToken,toEmail)=> {
     }); 
 }
 
-const checkUserExists = async (email) => {
-    let userExists = await models.Users.findOne({
-        where: { user_email: email},
-        attributes: ['id']
-    });
-    return ( userExists != null ) ? true: false;
-}
+// const checkUserExists = async (email) => {
+//     let userExists = await models.Users.findOne({
+//         where: { user_email: email},
+//         attributes: ['id']
+//     });
+//     return ( userExists != null ) ? true: false;
+// }
 
 
 export const sigin = async (req, res)=> {
@@ -48,21 +49,21 @@ export const sigin = async (req, res)=> {
         let redis = undefined;
         let smail = undefined;
 
-        let userExists = await checkUserExists(user_mail); 
-        
-        if ( userExists != true ) {
-            try {
-                redis = await redis_connect();
-                // smail = await sendEmail(token,user_mail);
-            }catch(error) {
-                return res.status(200).json(returns.error_operation_failed())
-            }
-            models.Users.create({
+        // let userExists = await checkUserExists(user_mail); 
+        const [user, created ] = await models.Users.findOrCreate({
+            where: {
                 user_email: user_mail,
+            },
+            defaults: {
                 user_pass:  user_pass
-            });
+            },
+            transaction: null
+        });
 
+        if (created) {
+            redis = await redis_connect();
             redis.set(token,user_mail,{EX:600});
+            //smail = await sendEmail(token,user_mail);
             return res.status(200).json(returns.success());
         }
 
