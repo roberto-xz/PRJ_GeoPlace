@@ -18,7 +18,6 @@ export const ative = async (req,res) =>{
                 {where: {user_email:email}}
             );
             redis.del(token);
-            redis.disconnect();   
             return res.status(200).json(returns.success());
         }
         return res.status(200).json(returns.error_token_expired());

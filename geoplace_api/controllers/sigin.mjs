@@ -53,9 +53,8 @@ export const sigin = async (req, res)=> {
         if ( userExists != true ) {
             try {
                 redis = await redis_connect();
-                smail = await sendEmail(token,user_mail);
+                // smail = await sendEmail(token,user_mail);
             }catch(error) {
-                console.log(error);
                 return res.status(200).json(returns.error_operation_failed())
             }
             models.Users.create({
@@ -63,7 +62,7 @@ export const sigin = async (req, res)=> {
                 user_pass:  user_pass
             });
 
-            redis.set(token,user_mail,{EX:30});
+            redis.set(token,user_mail,{EX:600});
             return res.status(200).json(returns.success());
         }
 

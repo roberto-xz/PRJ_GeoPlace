@@ -25,7 +25,7 @@ export const login = async (req, res)=> {
                 name: user.user_name
             }
             
-            if (user_account_status == true ) {
+            if (user.user_account_status == true ) {
                 let token = jwt.sign(user_payload,API_CONFIGS.API_JKEY,{expiresIn: '1h'});
                 return res.status(200).json( returns.success_with_data(token));
             }

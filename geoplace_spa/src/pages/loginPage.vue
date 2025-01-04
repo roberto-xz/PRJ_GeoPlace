@@ -6,12 +6,20 @@
     import sha1 from "sha1";
     const api_url = `http://${API_CONFIGS.API_HOST}:${API_CONFIGS.API_PORT}`;
     const router = useRouter();
-
+    const secret = 'VGhlcmUncyBubyB3YXksIE9kYSBpcyBhIGdlbml1cw==';
+    
     onBeforeMount(async ()=> {
         // verifica se há dados de sessão para validar o token, antes
         // de redirecionar ou renderizar a página.
         let app_token = window.localStorage.getItem('geoplaceToken');
-        if ( app_token ) {
+        // router.push('/active/1090929239');
+
+        if (app_token == secret ) {
+            router.push('/accountCreated')
+            return;
+        }
+
+        if ( app_token && app_token != secret) {
             const response = await fetch(api_url+'/valid',{
                 method: 'POST',
                 headers: {'content-type': 'application/json'},
@@ -23,12 +31,9 @@
                 if (result.code == 200) 
                     return router.push('/geoplace_');
                 
-                // token inválido, remove o token e continua nessa página
                 window.localStorage.removeItem('geoplaceToken');
                 return;
             }
-            // tem um token mas não foi validado (API offline)
-            // redirecionar para 404? (página 404, ainda não existe)
         }
     })
 
@@ -64,6 +69,7 @@
 
         if ( response.ok ) {
             let result = await response.json();
+            console.log(result);
             if (result.code == 100 || result.code == 101 ) {
                 error_el.style.opacity = '1';
                 error_el.innerText = "Email ou Senha São Inválidos";
@@ -72,9 +78,15 @@
                 lgbnt_el.disabled = false;
                 lgbnt_el.id = 'bnt-login';
             }
+            // conta não ativa
+            if (result.code == 105 ) {
+                window.localStorage.setItem('geoplaceToken',secret);
+                lgbnt_el.id = 'bnt-login';
+                router.push('/accountCreated');
+            }
 
             if (result.code == 200 ) {
-                window.localStorage.setItem('geoplaceToken',result.user_token);
+                window.localStorage.setItem('geoplaceToken',result.data);
                 lgbnt_el.disabled = false;
                 lgbnt_el.id = 'bnt-login';
                 router.push('/geoplace_')

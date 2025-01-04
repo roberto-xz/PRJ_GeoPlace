@@ -26,7 +26,6 @@ app.post('/valid',valid);
 app.post('/ative',ative);
 
 app.use((error,req,res,next)=> {
-    console.log(error)
     return res.status(200).json(returns.error_json_format());
 });
 
