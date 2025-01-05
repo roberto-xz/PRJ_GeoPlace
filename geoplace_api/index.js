@@ -2,7 +2,7 @@
 import 'dotenv/config'
 import express from 'express'
 import cors from 'cors'
-import {models,sequelize,startSequelize} from './models/models.mjs'
+import {models,starts} from './models/models.mjs'
 
 //controllers
 import {login} from './controllers/login.mjs';
@@ -32,7 +32,8 @@ app.use((error,req,res,next)=> {
 
 
 const startupAPI = async ()=> {
-    if ( await startSequelize()) {
+    // Testando instancia do sequelize
+    if ( await starts()) {
         let api_host = process.env.api_host;
         let api_port = process.env.api_port;
 
@@ -41,7 +42,7 @@ const startupAPI = async ()=> {
         })
     }  
     else
-        console.log('[geoplace_api] Sequelize is not connected, view mysql is up');
+    console.log('[geoplace_api] Sequelize is not connected');
 }
 
 startupAPI();

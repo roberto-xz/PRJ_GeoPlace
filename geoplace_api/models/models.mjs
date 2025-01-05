@@ -1,12 +1,12 @@
 
-import sequelize from '../Utils/sequelizeInstance.mjs';
-import userModel from './users.mjs'
-
+import sequelize from '../src/sequelize.mjs';
+import userModel from './models/users.mjs'
+      
 const models = {
     Users: userModel(sequelize)
 }
 
-const startSequelize = async ()=>{
+const starts = async ()=> {
     try {
         await sequelize.authenticate()
         await sequelize.sync({force: true});
@@ -14,4 +14,4 @@ const startSequelize = async ()=>{
     }catch(er){ return false;}
 }
 
-export {models,sequelize, startSequelize}
+export {models, starts }
