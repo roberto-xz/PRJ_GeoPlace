@@ -7,7 +7,7 @@ import { mailTemplace } from "../Utils/mailTemplate.mjs";
 import nodemailer from "nodemailer";
 import returns from '../returns/returns.mjs';
 import dotenv from 'dotenv'
-import { Transaction } from "sequelize";
+
 dotenv.config();
 
 
@@ -49,15 +49,11 @@ export const sigin = async (req, res)=> {
         let redis = undefined;
         let smail = undefined;
 
-        // let userExists = await checkUserExists(user_mail); 
         const [user, created ] = await models.Users.findOrCreate({
-            where: {
-                user_email: user_mail,
-            },
+            where: { user_email: user_mail },
             defaults: {
                 user_pass:  user_pass
-            },
-            transaction: null
+            }
         });
 
         if (created) {
