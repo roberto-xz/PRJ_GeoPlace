@@ -18,20 +18,19 @@ export const login = async (req, res)=> {
             },
             attributes:['id','user_name','user_account_status'],
         });
-        if (user) return res.json(returns.error_invalid_input());
-        if (user.user_account_status == true ) {
-            let user_data = {
-                type: 'login',
-                uuid: user.id, 
-                name: user.user_name
-            }
-            let token = creat_token(user_data, '24h');
-            res.json(returns.success_with_data(token));
-            return;
-        }
 
-        res.json(returns.error_account_not_actived());
-        return
+        if (user) return res.json(returns.error_invalid_input());
+        if (user.user_account_status == false)  
+            return res.json(returns.error_account_not_actived());
+        
+        let user_data = {
+            type: 'login',
+            uuid: user.id, 
+            name: user.user_name
+        }
+        let token = creat_token(user_data, '24h');
+        res.json(returns.success_with_data(token));
+        return;
     }
     
     res.json(returns.error_invalid_request());
