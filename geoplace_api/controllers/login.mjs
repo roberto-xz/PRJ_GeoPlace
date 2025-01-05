@@ -1,5 +1,5 @@
 
-import { API_CONFIGS } from "../api.config.mjs";
+import 'dotenv/config'
 import isValidLoginData from '../Utils/loginValidInputs.mjs'
 import {models} from '../models/models.mjs'
 import returns from '../returns/returns.mjs';
@@ -26,7 +26,7 @@ export const login = async (req, res)=> {
             }
             
             if (user.user_account_status == true ) {
-                let token = jwt.sign(user_payload,API_CONFIGS.API_JKEY,{expiresIn: '1h'});
+                let token = jwt.sign(user_payload,process.env.api_jkey,{expiresIn: '1h'});
                 return res.status(200).json( returns.success_with_data(token));
             }
 
