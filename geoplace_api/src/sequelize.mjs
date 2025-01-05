@@ -1,16 +1,18 @@
 
 import { Sequelize } from 'sequelize';
-import {API_CONFIGS} from '../api.config.mjs'; 
+import 'dotenv/config'
 
 export default new Sequelize (
-    API_CONFIGS.MYSQL_DATA,
-    API_CONFIGS.MYSQL_USER,
-    API_CONFIGS.MYSQL_PASS,
+    process.env.db_name,
+    process.env.db_user,
+    process.env.db_pass,
+
     {
-        host: API_CONFIGS.API_HOST,
+        host: process.env.db_host,
         dialect: 'mysql',
+        logging: false,
         pool: {
-            max: 15,
+            max: 5,
             min: 0,
             acquire: 30000,
             idle: 10000
