@@ -30,7 +30,6 @@ app.use((error,req,res,next)=> {
 });
 
 
-
 const startupAPI = async ()=> {
     // Testando instancia do sequelize
     if ( await starts()) {
