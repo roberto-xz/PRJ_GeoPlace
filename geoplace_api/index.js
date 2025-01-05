@@ -38,7 +38,7 @@ const startupAPI = async ()=> {
         let api_port = process.env.api_port;
 
         app.listen(api_port,api_host,()=> {
-            console.log(`server running on :${api_host}:${api_port}`);
+            console.log(`server running on ${api_host}:${api_port}`);
         })
     }  
     else
