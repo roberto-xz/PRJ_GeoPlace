@@ -1,70 +1,48 @@
 
-import { redis_connect } from "../Utils/redisConnect.mjs";
-import isValidLoginData  from '../Utils/loginValidInputs.mjs'
-import genToken from '../Utils/generateToken.mjs';
-import {models} from '../models/models.mjs'
-import { mailTemplace } from "../Utils/mailTemplate.mjs";
-import nodemailer from "nodemailer";
-import returns from '../returns/returns.mjs';
-import dotenv from 'dotenv'
-
 dotenv.config();
+import rediscnnx from '../src/rediscnnx.mjs';
+import nodemaile from '../src/nodemaile.mjs';
 
+import valid_login from '../utils/login_valid.mjs';
+import secret_code from '../utils/creat_scode.mjs';
+import email_plate from '../utils/email_plate.mjs';
 
-
-const sendEmail = (numberToken,toEmail)=> {
-    let fromEmail = process.env.geoplace_mail;
-
-    const transport = nodemailer.createTransport({
-        service: 'gmail',
-        auth:{
-            user:process.env.geoplace_mail,
-            pass:process.env.geoplace_pass
-        }
-    });
-
-    let status = transport.sendMail(mailTemplace(fromEmail,toEmail,numberToken));
-    
-    status.then(()=>{return true;})
-    status.catch((e)=> {
-        throw new Error('Error On Send Email Message',403);
-    }); 
-}
-
-// const checkUserExists = async (email) => {
-//     let userExists = await models.Users.findOne({
-//         where: { user_email: email},
-//         attributes: ['id']
-//     });
-//     return ( userExists != null ) ? true: false;
-// }
+import {models} from '../models/models.mjs'
+import returns  from '../returns/returns.mjs';
 
 
 export const sigin = async (req, res)=> {
     let user_mail = req.body.user_mail;
     let user_pass = req.body.user_pass;
- 
-    if (isValidLoginData(user_mail,user_pass)) {
-        let token = genToken(10);
-        let redis = undefined;
-        let smail = undefined;
-
-        const [user, created ] = await models.Users.findOrCreate({
-            where: { user_email: user_mail },
-            defaults: {
-                user_pass:  user_pass
-            }
-        });
-
-        if (created) {
-            redis = await redis_connect();
-            redis.set(token,user_mail,{EX:600});
-            //smail = await sendEmail(token,user_mail);
-            return res.status(200).json(returns.success());
-        }
-
-        return res.status(200).json(returns.error_duplicate_entry('email'));
+    
+    if (valid_login(user_mail,user_pass) == false ) {
+        res.json(returns.error_invalid_request());
+        return;
     }
     
-    return res.status(200).json(returns.error_invalid_request());     
+    let redis = await rediscnnx();
+    if (redis == null) {
+       console.log('[geoplace_api] Redis is not connected:: /sigin');
+       res.json(returns.error_operation_failed());
+       return
+    }
+
+    const [user, created ] = await models.Users.findOrCreate({
+        where:    { user_email: user_mail },
+        defaults: { user_pass:  user_pass }
+    });
+
+    if (created) {
+        let scode = secret_code();
+        let email = email_plate(user_mail,scode);
+        redis.set(scode,user_mail,{EX:600});
+
+        const email_status = await nodemaile(email);
+        if (email_status)
+            return res.json(returns.success());
+        res.json(returns.error_operation_failed());
+    }
+    
+    res.json(returns.error_duplicate_entry('email'));
+    return;     
 }
