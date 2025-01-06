@@ -7,8 +7,8 @@ export default async (template) => {
     const email = nodemailer.createTransport({
         service: process.env.email_serv,
         auth:{
-            user:process.env.email_user,
-            pass:process.env.email_pass
+            user:process.env.geoplace_mail,  //.email_user
+            pass:process.env.geoplace_pass   //.email_pass
         }
     });
 
