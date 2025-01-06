@@ -1,11 +1,14 @@
 
 import { createClient } from "redis";
 
-export default async ()=> {
-    let redis = createClient();
-    
-    try { 
-        await  redis.connect();
-        return redis;
-    } catch(e){ return null;}
+let connection = null;
+
+export default  async ()=> {
+    if (connection == null) {
+        connection = createClient();
+        try { 
+            await connection.connect();
+        } catch(e){ connection = null}
+    }
+    return connection
 }
