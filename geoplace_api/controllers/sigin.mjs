@@ -34,20 +34,23 @@ export const sigin = async (req, res)=> {
     if (created) {
         let scode = secret_code();
         let email = email_plate(user_mail,scode);
-        redis.set(scode,user_mail,{EX:600});
 
         //enviando um email
         //const email_status = await nodemaile(email);
         const email_status = true;
-        email = null; user_mail = null
-        scode = null; user_pass = null
-        redis.quit()
         
-        if (email_status)
-            return res.json(returns.success());
+        if (email_status) {
+            redis.set(scode,user_mail,{EX:600});
+            res.json(returns.success());
+            redis.quit()
+            return
+        }
         res.json(returns.error_operation_failed());
+        redis.quit()
+        return;
     }
-    
+
     res.json(returns.error_duplicate_entry('email'));
+    redis.quit();
     return;     
 }
