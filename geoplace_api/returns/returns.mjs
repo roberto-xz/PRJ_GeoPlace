@@ -42,6 +42,11 @@ export default {
     message: "This Account Is Not Actived"
   }),
 
+  error_cannot_request_new_codes: () => ({
+    code: 106,
+    message: "You Cannot Request New Scodes"
+  }),
+
   error_json_format: () => ({
     code: 300,
     message: "Invalid JSON Format"
