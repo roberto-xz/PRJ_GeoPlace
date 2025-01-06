@@ -80,6 +80,16 @@ export default (sqlz_instance) => {
             defaultValue: false 
         },
         
+        user_is_blocked: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false 
+        },
+
+        user_scode_rc_max_trys: {
+            type: DataTypes.INTEGER,
+            defaultValue: 5
+        },
+
         user_ads: {
             type: DataTypes.INTEGER,
             allowNull: true,
