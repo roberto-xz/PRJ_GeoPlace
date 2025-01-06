@@ -39,6 +39,9 @@ export const sigin = async (req, res)=> {
         //enviando um email
         //const email_status = await nodemaile(email);
         const email_status = true;
+        email = null; user_mail = null
+        scode = null; user_pass = null
+        redis.quit()
         
         if (email_status)
             return res.json(returns.success());
