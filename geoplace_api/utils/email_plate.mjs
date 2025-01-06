@@ -34,7 +34,7 @@ export default (send_to, secret_code) =>{
         </html>`;
 
     return {
-        from: process.env.email_serv,
+        from: process.env.geoplace_mail, //.email_serv,
         to  : send_to,
         subject: "Ative sua conta no GeoPlace e encontre o imóvel dos seus sonhos!",
         text: `

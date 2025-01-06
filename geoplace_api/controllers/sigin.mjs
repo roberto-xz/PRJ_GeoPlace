@@ -1,5 +1,4 @@
 
-dotenv.config();
 import rediscnnx from '../src/rediscnnx.mjs';
 import nodemaile from '../src/nodemaile.mjs';
 
@@ -35,14 +34,23 @@ export const sigin = async (req, res)=> {
     if (created) {
         let scode = secret_code();
         let email = email_plate(user_mail,scode);
-        redis.set(scode,user_mail,{EX:600});
 
-        const email_status = await nodemaile(email);
-        if (email_status)
-            return res.json(returns.success());
+        //enviando um email
+        //const email_status = await nodemaile(email);
+        const email_status = true;
+        
+        if (email_status) {
+            redis.set(scode,user_mail,{EX:600});
+            res.json(returns.success());
+            redis.quit()
+            return
+        }
         res.json(returns.error_operation_failed());
+        redis.quit()
+        return;
     }
-    
+
     res.json(returns.error_duplicate_entry('email'));
+    redis.quit();
     return;     
 }

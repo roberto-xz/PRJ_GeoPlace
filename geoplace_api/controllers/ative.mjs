@@ -1,13 +1,14 @@
 
-import {rediscnnx} from '../src/rediscnnx.mjs';
+import rediscnnx from '../src/rediscnnx.mjs';
 import {models} from '../models/models.mjs'
 import returns  from '../returns/returns.mjs'
 
 export const ative = async (req,res) =>{
     let token = req.body.user_token;
-    let regex = /^\d{10}$/;
     
-    if (!regex.test(token)) return res.json(returns.error_invalid_request()); 
+    //let regex = /^\d{10}$/;
+    //if (!regex.test(token)) return res.json(returns.error_invalid_request()); 
+    
     let redis = await rediscnnx();
     if (redis == null) {
        console.log('[geoplace_api] Redis is not connected:: /Valid');

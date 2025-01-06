@@ -19,7 +19,7 @@ export const login = async (req, res)=> {
             attributes:['id','user_name','user_account_status'],
         });
 
-        if (user) return res.json(returns.error_invalid_input());
+        if (!user) return res.json(returns.error_invalid_input());
         if (user.user_account_status == false)  
             return res.json(returns.error_account_not_actived());
         

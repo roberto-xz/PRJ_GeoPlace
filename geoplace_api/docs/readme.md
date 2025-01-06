@@ -55,4 +55,10 @@ Após executar esses passos, configure o `.env` arquivo presente na pasta root d
 
 #### Iniciando com o docker 
 
-Para iniciar com o Docker, é necessário ter familiaridade com ele. Após clonar o repositório, suba um container para o serviço de cache usado (`redis`) e outro para o servidor de banco de dados (`mariadb`). Em seguida, entre na pasta do repositório, instale as dependências, configure o arquivo `.env` e execute o comando `pnpm run dev`
+Para iniciar com o Docker, é necessário ter familiaridade com ele. Após clonar o repositório, 
+suba um container para o serviço de cache usado (`redis`) e outro para o servidor 
+de banco de dados (`mariadb`). 
+
+Em seguida, entre na pasta do repositório e configure as variáveis de ambiente no `Dockerfile`
+e execute o comando `sudo docker build -t geoplace_api:1.0 .`, espera a imagem ser construida e
+execute o comando `sudo docker run -it geoplace_api:1.0` , e você verá o ip e porta da api..

@@ -9,6 +9,7 @@ import {login} from './controllers/login.mjs';
 import {sigin} from './controllers/sigin.mjs';
 import {valid} from './controllers/valid.mjs';
 import {ative} from './controllers/ative.mjs';
+import {rtive} from './controllers/rtive.mjs';
 import returns from './returns/returns.mjs';
 
 
@@ -24,6 +25,7 @@ app.post('/login',login);
 app.post('/sigin',sigin);
 app.post('/valid',valid);
 app.post('/ative',ative);
+app.post('/rtive',rtive);
 
 app.use((error,req,res,next)=> {
     return res.status(200).json(returns.error_json_format());
