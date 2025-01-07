@@ -16,7 +16,7 @@ export const login = async (req, res)=> {
                 user_email: user_mail,
                 user_pass:  user_pass
             },
-            attributes:['id','user_name','user_account_status'],
+            attributes:['id','user_account_status'],
         });
 
         if (!user) return res.json(returns.error_invalid_input());
@@ -26,7 +26,7 @@ export const login = async (req, res)=> {
         let user_data = {
             type: 'login',
             uuid: user.id, 
-            name: user.user_name
+            email: user_mail
         }
         let token = creat_token(user_data, '24h');
         res.json(returns.success_with_data(token));
