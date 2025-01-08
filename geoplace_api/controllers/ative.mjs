@@ -18,13 +18,15 @@ export const ative = async (req,res) =>{
     const timer = await redis.ttl(token);
     if (timer > 2 ) {
         let email = await redis.get(token);
-        models.Users.update(
+        let [count,_] = await models.Users.update(
             {user_account_status: true},
             {where: {user_email:email}}
         );
-        redis.del(token);
-        res.json(returns.success());
-        return 
+        if (count > 0 ) {
+            redis.del(token);
+            res.json(returns.success());
+            return 
+        }
     }
     res.json(returns.error_token_expired());
     return    

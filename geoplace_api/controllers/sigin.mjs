@@ -42,15 +42,12 @@ export const sigin = async (req, res)=> {
         if (email_status) {
             redis.set(scode,user_mail,{EX:600});
             res.json(returns.success());
-            redis.quit()
             return
         }
         res.json(returns.error_operation_failed());
-        redis.quit()
         return;
     }
 
     res.json(returns.error_duplicate_entry('email'));
-    redis.quit();
     return;     
 }

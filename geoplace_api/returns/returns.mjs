@@ -21,10 +21,10 @@ export default {
     message: "Invalid Data"
   }),
 
-  error_duplicate_entry: (type) => ({
+  error_duplicate_entry: (inputs) => ({
     code: 102,
     message: "Duplicate Data",
-    type: type
+    inputs: inputs
   }),
 
   error_operation_failed: () => ({
@@ -45,7 +45,7 @@ export default {
   error_cannot_request_new_codes: () => ({
     code: 106,
     message: "You Cannot Request New Scodes"
-  }),
+  }), 
 
   error_json_format: () => ({
     code: 300,

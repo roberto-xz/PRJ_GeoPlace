@@ -16,8 +16,8 @@ export const rtive = async (req, res) => {
             where: {user_email: user_mail},
             atributtes: ['id','user_account_status','user_scode_rc_max_trys'] 
         })
-
-        if (user == null)return res.json(returns.error_invalid_input());
+        
+        if (user == null) return res.json(returns.error_invalid_input());
         if (user.user_account_status == true)
             return res.json(returns.success()); // aconta já está ativa
         
@@ -41,11 +41,9 @@ export const rtive = async (req, res) => {
             redis.set(scode,user_mail,{EX:600});
             user.user_scode_rc_max_trys -= 1;
             await user.save();
-            redis.quit();
             res.json(returns.success());
             return
         }
-        redis.quit()
         res.json(returns.error_operation_failed());
         return;
     }
