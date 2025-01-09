@@ -23,13 +23,13 @@ app.use(cors({
     allowedHeaders: 'Content-Type,Authorization'
 }));
 
-app.post('/login',login);
-app.post('/sigin',sigin);
-app.post('/valid',valid);
-app.post('/ative',ative);
-app.post('/rtive',rtive);
-app.post('/delet',delet);
-app.post('/updat',updat);
+app.post('/user-login',login); 
+app.post('/user-sigin',sigin); 
+app.post('/user-delet',delet); 
+app.post('/user-update',updat); 
+app.post('/user-check-token',valid); 
+app.post('/user-active-account',ative); 
+app.post('/user-get-new-active-scode',rtive); 
 
 app.use((error,req,res,next)=> {
     return res.status(200).json(returns.error_json_format());
