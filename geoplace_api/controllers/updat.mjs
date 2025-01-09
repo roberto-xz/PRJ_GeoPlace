@@ -17,7 +17,7 @@ export const updat = async (req,res) => {
                 data_check.invalids.forEach(element=>{
                     json_res[element] = user_data[element]
                 });
-            return res.json(returns.error_invalid_input(json_res));
+            return res.status(400).send(json_res); // Bad Request
         }
 
         let user = await models.Users.findOne({
@@ -25,11 +25,13 @@ export const updat = async (req,res) => {
             atrributes: ['id','user_account_status']
         });
 
+
         if ( user && user.user_account_status == true) {
             try {
-                let result = await models.Users.update(user_data,{"where":{id: user.id}});
-                if (result)
-                    return res.json(returns.success());
+                let [count,_] = await models.Users.update(user_data,{"where":{id: user.id}});
+                if (count > 0 )
+                    return res.status(204).send();
+                
                 return res.json(returns.error_operation_failed());
 
             }catch(error) {
@@ -42,9 +44,7 @@ export const updat = async (req,res) => {
             }
         }
 
-        res.json(returns.error_account_not_actived());
-        return
+        return res.status(400).send(); // Bad Request
     }
-    res.json(returns.error_token_expired());
-    return
+    return res.status(401).send() // Unauthorized
 }

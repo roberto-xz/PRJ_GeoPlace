@@ -5,15 +5,11 @@ import returns  from '../returns/returns.mjs'
 
 export const ative = async (req,res) =>{
     let token = req.body.user_token;
-    
-    //let regex = /^\d{10}$/;
-    //if (!regex.test(token)) return res.json(returns.error_invalid_request()); 
-    
     let redis = await rediscnnx();
+
     if (redis == null) {
-       console.log('[geoplace_api] Redis is not connected:: /Valid');
-       res.json(returns.error_operation_failed());
-       return
+       console.log('[geoplace_api] Redis is not connected:: /ative');
+       return res.status(500).send(); // Internal Server Error
     } 
     const timer = await redis.ttl(token);
     if (timer > 2 ) {
@@ -24,10 +20,9 @@ export const ative = async (req,res) =>{
         );
         if (count > 0 ) {
             redis.del(token);
-            res.json(returns.success());
-            return 
+            return res.status(200).send() // 200 - Ok
         }
     }
-    res.json(returns.error_token_expired());
+    res.status(401).send() // Unauthorized
     return    
 }

@@ -1,17 +1,15 @@
 
 import 'dotenv/config'
 import jwt from 'jsonwebtoken'
-import returns from '../returns/returns.mjs';
 
 export const valid = (req,res) => {
-    let token = req.body.user_token;
+    if (req.body.user_token == undefined )
+        return res.status(400).send(); // Bad Request
 
-    if (token == undefined )
-        return res.json(returns.error_invalid_request());
-
-    jwt.verify(token,process.env.api_jkey,(err, decode) => {
+    jwt.verify(req.body.user_token,process.env.api_jkey,
+    (err, decode) => {
         return ( decode == undefined ) 
-            ? res.json(returns.error_token_expired()) 
-            : res.json(returns.success());
+            ? res.status(401).send() // Unauthorized
+            : res.status(200).send() // 200 - Ok
     });
 }

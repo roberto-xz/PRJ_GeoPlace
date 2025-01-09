@@ -17,19 +17,20 @@ export const rtive = async (req, res) => {
             atributtes: ['id','user_account_status','user_scode_rc_max_trys'] 
         })
         
-        if (user == null) return res.json(returns.error_invalid_input());
+        if (user == null) 
+            return res.status(400).send(); // Bad Request
         if (user.user_account_status == true)
-            return res.json(returns.success()); // aconta já está ativa
+            res.status(401).send() // Unauthorized
         
         if ( user.user_scode_rc_max_trys == 0 ) // verifica se ainda há tentativas 
-            return res.json(returns.error_cannot_request_new_codes());
+             res.status(429).send() // Too Many Requests
 
         let redis = await rediscnnx();
         if (redis == null) {
-            console.log('[geoplace_api] Redis is not connected:: /rtive');
-            res.json(returns.error_operation_failed());
-            return
+            console.log('[geoplace_api] Redis is not connected:: /rative');
+            return res.status(500).send(); // Internal Server error_operation_failed
         }
+
         let scode = secret_code();
         let email = email_plate(user_mail,scode);
         
@@ -41,12 +42,11 @@ export const rtive = async (req, res) => {
             redis.set(scode,user_mail,{EX:600});
             user.user_scode_rc_max_trys -= 1;
             await user.save();
-            res.json(returns.success());
-            return
+            return res.status(200).send();
         }
-        res.json(returns.error_operation_failed());
-        return;
+        console.log('[geoplace_api] Error on send email:: /rative');
+        return res.status(500).send();
     }
 
-    return res.json(returns.error_invalid_request());
+    return res.status(400).send(); // Bad Request
 }
