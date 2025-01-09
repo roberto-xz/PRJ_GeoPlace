@@ -1,5 +1,6 @@
 
-export default {
+export default 
+{
   success: () => ({
     code: 200,
     message: "Ok"
@@ -19,6 +20,12 @@ export default {
   error_invalid_input: () => ({
     code: 101,
     message: "Invalid Data"
+  }),
+
+  error_invalid_input: (inputs) => ({
+    code: 101,
+    message: "Invalid Data",
+    inputs
   }),
 
   error_duplicate_entry: (inputs) => ({
@@ -45,7 +52,8 @@ export default {
   error_cannot_request_new_codes: () => ({
     code: 106,
     message: "You Cannot Request New Scodes"
-  }), 
+  }),
+
 
   error_json_format: () => ({
     code: 300,
