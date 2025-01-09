@@ -3,6 +3,7 @@ import 'dotenv/config'
 import express from 'express'
 import cors from 'cors'
 import {models,starts} from './models/models.mjs'
+import returns from './returns/returns.mjs';
 
 //controllers
 import {login} from './controllers/login.mjs';
@@ -11,7 +12,7 @@ import {valid} from './controllers/valid.mjs';
 import {ative} from './controllers/ative.mjs';
 import {rtive} from './controllers/rtive.mjs';
 import {delet} from './controllers/delet.mjs';
-import returns from './returns/returns.mjs';
+import {updat} from './controllers/updat.mjs';
 
 
 const app = express();
@@ -28,6 +29,7 @@ app.post('/valid',valid);
 app.post('/ative',ative);
 app.post('/rtive',rtive);
 app.post('/delet',delet);
+app.post('/updat',updat);
 
 app.use((error,req,res,next)=> {
     return res.status(200).json(returns.error_json_format());
