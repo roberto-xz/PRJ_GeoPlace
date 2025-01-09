@@ -25,8 +25,8 @@ app.use(cors({
 
 app.post('/user-login',login); 
 app.post('/user-sigin',sigin); 
-app.post('/user-delet',delet); 
-app.post('/user-update',updat); 
+app.delete('/user-delet',delet); 
+app.patch('/user-update',updat); 
 app.post('/user-check-token',valid); 
 app.post('/user-active-account',ative); 
 app.post('/user-get-new-active-scode',rtive); 
