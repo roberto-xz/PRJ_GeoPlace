@@ -9,7 +9,7 @@ const models = {
 const starts = async ()=> {
     try {
         await sequelize.authenticate()
-        await sequelize.sync({force: true});
+        await sequelize.sync(/*{force: true}*/);
         return true;
     }catch(er){ return false;}
 }

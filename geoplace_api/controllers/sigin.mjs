@@ -5,7 +5,7 @@ import nodemaile from '../src/nodemaile.mjs';
 import valid_login from '../utils/login_valid.mjs';
 import secret_code from '../utils/creat_scode.mjs';
 import email_plate from '../utils/email_plate.mjs';
-import {models} from '../models/models.mjs'
+import {models}    from '../models/models.mjs'
 
 export const sigin = async (req, res)=> {
     let user_mail = req.body.user_mail;
@@ -29,8 +29,7 @@ export const sigin = async (req, res)=> {
         let scode = secret_code();
         let email = email_plate(user_mail,scode);
 
-        //enviando um email
-        //const email_status = await nodemaile(email);
+        //const email_status = await nodemaile(email); // envia um email
         const email_status = true;
         
         if (email_status) {
@@ -38,7 +37,7 @@ export const sigin = async (req, res)=> {
             return res.send('ok');
         }
         console.log('[geoplace_api] Error on send email:: /sigin');
-        return res.status(500).send();
+        return res.status(500).send(); // Internal Server Error
     }
 
     res.status(409).send() // unic conflict
