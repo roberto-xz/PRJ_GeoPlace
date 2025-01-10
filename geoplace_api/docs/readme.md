@@ -4,10 +4,10 @@ Esse projeto foi desenvolvido como parte do projeto **geoplace**, sendo ele o re
 
 | endpoint  |   method     |  REq/REs | Documentação|
 |---------- |------------|-----------|----------|
-| /login    | POST | json | #201 |
-| /sigin    | POST | json | #202 |
-| /valid    | POST | json | #203 |
-| /ative    | POST | json | #204 |
+| /user-login    | POST | json | #001 [document](docs/router_login.md) |
+| /user-sigin    | POST | json | #202 |
+| /user-delet    | POST | json | #203 |
+| /user-active-account    | POST | json | #204 |
 
 Todas essas rotas devem conter um **json** devidamente formatado e válido, como o payload da solicitação, seguindo a estrutura requerida para cada rota, todos os endpoints retornam um **json** em uma estrutura padronizada.  Você pode ver a estrutura de `request` e `response` de cada rota clicando no link da coluna de `Documentação` da rota em específico.
 
