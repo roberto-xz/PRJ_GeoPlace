@@ -1,5 +1,6 @@
 
-import 'dotenv/config'
+// add error to test LSP vim
+mport 'dotenv/config'
 import express from 'express'
 import cors from 'cors'
 import {models,starts} from './models/models.mjs'
@@ -8,11 +9,12 @@ import returns from './returns/returns.mjs';
 //controllers
 import {login} from './controllers/login.mjs';
 import {sigin} from './controllers/sigin.mjs';
-import {valid} from './controllers/valid.mjs';
-import {ative} from './controllers/ative.mjs';
-import {rtive} from './controllers/rtive.mjs';
-import {delet} from './controllers/delet.mjs';
-import {updat} from './controllers/updat.mjs';
+import {check_token} from './controllers/check_token.mjs';
+import {active_account} from './controllers/active_account.mjs';
+import {get_new_scode} from './controllers/get_new_scode.mjs';
+import {delet_account} from './controllers/delet_account.mjs';
+import {update_account} from './controllers/update_account.mjs';
+import {change_password} from './controllers/change_password.mjs';
 
 
 const app = express();
@@ -25,11 +27,12 @@ app.use(cors({
 
 app.post('/user-login',login); 
 app.post('/user-sigin',sigin); 
-app.delete('/user-delet',delet); 
-app.patch('/user-update',updat); 
-app.post('/user-check-token',valid); 
-app.post('/user-active-account',ative); 
-app.post('/user-get-new-active-scode',rtive); 
+app.delete('/user-delet',delet_account); 
+app.patch('/user-update',update_account); 
+app.put('/user-change-password',change_password); 
+app.post('/user-check-token',check_token); 
+app.put('/user-active-account',active_account); 
+app.post('/user-get-new-scode',get_new_scode); 
 
 app.use((error,req,res,next)=> {
     return res.status(200).json(returns.error_json_format());
