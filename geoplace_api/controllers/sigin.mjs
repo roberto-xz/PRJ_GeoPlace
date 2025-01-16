@@ -33,7 +33,11 @@ export const sigin = async (req, res)=> {
         const email_status = true;
         
         if (email_status) {
-            redis.set(scode,user_mail,{EX:600});
+            let redis_value = JSON.stringify({
+                email: user_mail,
+                ctype: 'ative_account'
+            });
+            redis.set(scode,redis_value,{EX:600});
             return res.send('ok');
         }
         console.log('[geoplace_api] Error on send email:: /sigin');
