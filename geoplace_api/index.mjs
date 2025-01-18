@@ -1,6 +1,5 @@
 
-// add error to test LSP vim
-mport 'dotenv/config'
+import 'dotenv/config'
 import express from 'express'
 import cors from 'cors'
 import {models,starts} from './models/models.mjs'
@@ -10,10 +9,10 @@ import returns from './returns/returns.mjs';
 import {login} from './controllers/login.mjs';
 import {sigin} from './controllers/sigin.mjs';
 import {check_token} from './controllers/check_token.mjs';
-import {active_account} from './controllers/active_account.mjs';
+import {active_account} from './controllers/ative_account.mjs';
 import {get_new_scode} from './controllers/get_new_scode.mjs';
 import {delet_account} from './controllers/delet_account.mjs';
-import {update_account} from './controllers/update_account.mjs';
+import {update_account} from './controllers/update_accout.mjs';
 import {change_password} from './controllers/change_password.mjs';
 
 
@@ -54,3 +53,4 @@ const startupAPI = async ()=> {
 }
 
 startupAPI();
+export default app;
