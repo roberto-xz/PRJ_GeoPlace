@@ -16,8 +16,9 @@ export const login = async (req, res)=> {
             attributes:['id','user_account_status'],
         });
 
-        if (!user || user.user_account_status == false) 
-            return res.status(401).send(); // Unauthorized
+        if (!user) return res.sendStatus(404) // usuário não encontrado
+        if (!user.user_account_status) 
+            return res.sendStatus(401); // Unauthorized
 
         let user_data = {
             type: 'login',
