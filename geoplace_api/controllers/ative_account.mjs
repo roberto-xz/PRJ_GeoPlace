@@ -2,8 +2,12 @@
 import rediscnnx from '../src/rediscnnx.mjs';
 import {models} from '../models/models.mjs'
 
-export const active_account = async (req,res) =>{
+export const active_account = async (req,res) => {
     let scode = req.body.gp_scode;
+    
+    if (!scode || scode.length < 25 || scode.length > 25 )
+        return res.sendStatus(400)
+
     let redis = await rediscnnx();
     
     if (redis == null) {
