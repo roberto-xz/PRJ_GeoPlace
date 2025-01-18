@@ -20,17 +20,16 @@ const app = express();
 app.use(express.json())
 app.use(cors({
     origin: '*',  
-    methods: 'GET,POST',  
-    allowedHeaders: 'Content-Type,Authorization'
+    methods: '*',  
+    allowedHeaders: '*'
 }));
-
-app.post('/user-login',login); 
-app.post('/user-sigin',sigin); 
+app.post('/login',login); 
+app.post('/sigin',sigin); 
+app.post('/ative',active_account); 
 app.delete('/user-delet',delet_account); 
 app.patch('/user-update',update_account); 
 app.put('/user-change-password',change_password); 
-app.post('/user-check-token',check_token); 
-app.put('/user-active-account',active_account); 
+app.post('/check-token',check_token); 
 app.post('/user-get-new-scode',get_new_scode); 
 
 app.use((error,req,res,next)=> {
