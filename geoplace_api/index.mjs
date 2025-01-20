@@ -30,7 +30,7 @@ app.delete('/user-delet',delet_account);
 app.patch('/user-update',update_account); 
 app.put('/user-change-password',change_password); 
 app.post('/check-token',check_token); 
-app.post('/user-get-new-scode',get_new_scode); 
+app.post('/get-new-scode',get_new_scode); 
 
 app.use((error,req,res,next)=> {
     return res.status(200).json(returns.error_json_format());
