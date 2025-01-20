@@ -4,10 +4,11 @@ import {models} from '../models/models.mjs'
 
 export const active_account = async (req,res) => {
     let scode = req.body.gp_scode;
-    
+    return res.sendStatus(200)
+/*    
     if (!scode || scode.length < 25 || scode.length > 25 )
         return res.sendStatus(400)
-
+*/
     let redis = await rediscnnx();
     
     if (redis == null) {
@@ -16,6 +17,8 @@ export const active_account = async (req,res) => {
     }
     
     let rdata = await redis.get(scode);
+    if (!rdata) return res.sendStatus(400)
+    
     rdata = JSON.parse(rdata);
 
     if (rdata.ctype == 'ative_account') {
