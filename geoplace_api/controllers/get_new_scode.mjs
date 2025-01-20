@@ -17,7 +17,12 @@ export const get_new_scode = async (req, res) => {
         });
 
         if (!user) return res.sendStatus(400); // Bad Request
-        if (!user.user_account_status) return res.sendStatus(401); // Unauthorized
+        
+        // O usuário já esta ativo, não tem mais autorização
+        // para requisitar códigos de ativação.
+        if (user.user_account_status) return res.sendStatus(401); // Unauthorized
+        
+        // Escedeu o limite de requisições
         if (!user.user_scode_rc_max_trys) return res.sendStatus(429); // Too Many Requests
 
         let redis = await rediscnnx();
