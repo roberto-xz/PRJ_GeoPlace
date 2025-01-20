@@ -1,3 +1,0 @@
-darkgreen: rgba(17,141,56,100)
-lighgreen: rgba(45,175,65,100)
-lightblue: rgba(34,112,151,99) 
