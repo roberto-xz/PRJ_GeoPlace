@@ -9,7 +9,7 @@ const routers = createRouter({
     {path: '/indexPage',name:'index',component: ()=> import('../pages/indexPage.vue')},
     {path: '/login',name:'login',component: ()=> import('../pages/login.vue')},
     {path: '/sigin',name:'sigin',component: ()=> import('../pages/sigin.vue')},
-    {path: '/ative/:token',name:'active',component: ()=> import('../pages/ative.vue')},
+    {path: '/ative/:scode',name:'active',component: ()=> import('../pages/ative.vue')},
     {path: '/created',component: ()=> import('../pages/accountCreated.vue')},
     {path: '/getLinkToActiveAccount',component: ()=> import('../pages/getLinkToActiveAccount.vue')},
     {path: '/updatePerfil',name:'perfl',component: ()=> import('../pages/updatePerfil.vue')},
@@ -20,7 +20,7 @@ const routers = createRouter({
     {path: '/about',name:'about',component: ()=> import('../pages/aboutPage.vue')},
     {path: '/help',name:'help',component: ()=> import('../pages/helpPage.vue')},
     {path: '/terms',name:'userTerms',component: ()=> import('../pages/userTermsPage.vue')},
-    {path: '/:pathMatch(.*)*', name: 'notFound', component: ()=> import('../pages/404.vue')},
+    {path: '/:pathMatch(.*)*/:code', name: 'notFound', component: ()=> import('../pages/errors.vue')},
   ],
   
 });
