@@ -16,7 +16,7 @@ export const get_new_scode = async (req, res) => {
             attributes: ['id', 'user_account_status', 'user_scode_rc_max_trys']
         });
 
-        if (!user) return res.sendStatus(400); // Bad Request
+        if (!user) return res.sendStatus(404); // Usuário não encontrado
         
         // O usuário já esta ativo, não tem mais autorização
         // para requisitar códigos de ativação.
