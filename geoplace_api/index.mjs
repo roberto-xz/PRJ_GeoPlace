@@ -25,7 +25,7 @@ app.use(cors({
 }));
 app.post('/login',login); 
 app.post('/sigin',sigin); 
-app.post('/ative',active_account); 
+app.put('/ative',active_account); 
 app.delete('/user-delet',delet_account); 
 app.patch('/user-update',update_account); 
 app.put('/user-change-password',change_password); 
