@@ -3,7 +3,8 @@
 import { onBeforeMount, ref } from "vue";
 import { useRouter} from "vue-router";
 
-import Apicf from './../../api-server.conf.mjs'
+import checkAcess from '../../utils/checkAcess.mjs';
+import Apicf from './../../apiconfig.mjs'
 import Email from './component_s/email.vue'
 import Passw from './component_s/passw.vue'
     
@@ -11,36 +12,7 @@ const email_ref = ref(null)
 const passw_ref = ref(null)
 const app_route = useRouter();
 
-onBeforeMount(async ()=> {
-    let login_token = window.localStorage.getItem('gpl_lgToken');
-    let account_sts = window.localStorage.getItem('gpl_isPendg')
-    
-    if (account_sts)
-        return app_route.push('/created');
-        
-    if (login_token != null) {
-        const body = {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json',
-            },
-            body: JSON.stringify({
-                user_token: login_token || ''
-            })
-        }
-        try {
-            const resp = await fetch(Apicf.API_URL+'/check-token',body)
-            console.log('virify-token: '+resp.status)
-            if (resp.status == 200 )
-                return app_route.push('/home')
-                /*Há um conta válida logada*/
-            
-            window.login_token.removeItem('gpl_lgToken')
-            return
-        }
-        catch(e){}
-    }
-});
+onBeforeMount(()=>{checkAcess(app_route)})
 
 const login = async ()=> {
     let diagnostic = document.getElementById('diagnostics')
