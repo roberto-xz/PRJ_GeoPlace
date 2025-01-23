@@ -20,6 +20,8 @@ const routers = createRouter({
     {path: '/about',name:'about',component: ()=> import('../pages/aboutPage.vue')},
     {path: '/help',name:'help',component: ()=> import('../pages/helpPage.vue')},
     {path: '/terms',name:'userTerms',component: ()=> import('../pages/userTermsPage.vue')},
+    {path: '/recoveryPwd',name:'recpwd',component: ()=> import('../pages/recoveryPassword.vue')},
+    {path: '/updatePassword/:scode',name:'updpwd',component: ()=> import('../pages/updatePassword.vue')},
     {path: '/:pathMatch(.*)*/:code', name: 'notFound', component: ()=> import('../pages/errors.vue')},
   ],
   

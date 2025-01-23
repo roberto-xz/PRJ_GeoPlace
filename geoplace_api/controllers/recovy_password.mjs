@@ -22,8 +22,8 @@ export const recovery_password = async (req,res)=> {
         attributes:['id','user_account_status']
     })
 
-    if (!user) return res.sendStatus(400);
-    if (!user.user_account_status) return res.sendStatus(401);
+    if (!user) return res.sendStatus(404);
+    if (user.user_account_status == false ) return res.sendStatus(401);
     
     //const email_status = await nodemaile(); // envia o email
     const email_status = true // para teste

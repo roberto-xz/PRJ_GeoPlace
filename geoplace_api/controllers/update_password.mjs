@@ -4,9 +4,9 @@ import rediscnnx from "../src/rediscnnx.mjs";
 
 const update_password = async (req,res)=> {
     const scode = req.body.gp_code;
-    const passw = req.body_unpassw || " ";
+    const passw = req.body.unpassw || " ";
     
-    if (!scode) return res.sendStatus(400);
+    if (!scode) return res.sendStatus(401);
     if (!validator.isSha1(passw)) return res.sendStatus(400);
     
     const redis = await rediscnnx();    
