@@ -73,6 +73,10 @@ const login = async ()=> {
         <div id='diagnostics'>Messagens aki</div>
         <Email ref="email_ref"/>
         <Passw ref="passw_ref"/>
+        <span 
+            @click='()=>app_route.push("/recoveryPwd")'>
+            Esqueci a senha
+        </span>
         <button @click="login()" id="bnt-login">Entrar</button>
     </main>
     </div>
@@ -107,7 +111,15 @@ img {
     color: #f3f3f3;
     padding: 3%;
 }
-
+span {
+    display: block;
+    width: 100%;
+    text-align: right;
+    text-decoration: underline;
+    color: blue;
+    cursor: pointer;
+    font: bolder .9rem/1 "Manjari";
+}
 #bnt-login {
     display: block;
     background-color: darkgreen;
