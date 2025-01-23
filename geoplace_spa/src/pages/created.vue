@@ -1,11 +1,14 @@
+
 <script setup>
 import { onBeforeMount } from "vue";
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 const route = useRoute()
+const app_router = useRouter();
 
 onBeforeMount(()=>{
     console.log(route.params.token)
 })
+
 </script>
 
 <template>
@@ -15,7 +18,10 @@ onBeforeMount(()=>{
             <h1> Sua conta foi criada com <br>Sucesso!</h1>
         </header>
         <p>Enviamos um e-mail de ativação para seu email. <br> Por favor, verifique sua caixa de entrada</p>
-        <button id='bnt-to-app'>Não recebeu o Email?</button>
+        <button id='bnt-to-app'
+            @click="()=>{app_router.push('/getNewLink')}">
+            Não recebeu o Email?
+        </button>
     </div>
 </template>
 
