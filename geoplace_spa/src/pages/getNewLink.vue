@@ -22,9 +22,10 @@ const send = async ()=>{
             headers: {'content-type':'application/json'},
             body: JSON.stringify({user_mail:email_ref.value.addres})
         }
+
         res = await fetch(Apicf.API_URL+'/get-new-scode',body);
         switch(res.status){
-            case 400:
+            case 404:
                 diagnostic.style.opacity = 1;
                 diagnostic.innerText = 'Usuário Não Encontrado'
                 setTimeout(()=>{
@@ -32,6 +33,7 @@ const send = async ()=>{
                 },2000)
             break;
             case 401:
+                // usuário já está ativo
                 app_route.push('/login')
             break;
             case 429:
@@ -61,6 +63,11 @@ const send = async ()=>{
     <main>
         <img src="/res/geoplace_icon.png" alt="geoplace image logo"/>
         <div id='diagnostics'>Messagens aki</div>
+        <p>
+            Opá, parece que sua conta não foi ativada, informe o endereço
+            de email utilizado no momento do cadastro, para que possamos enviar um 
+            novo link de ativação..
+        </p>
         <Email ref="email_ref"/>
         <button @click='send()'>Enviar Código</button>
     </main>
@@ -84,6 +91,7 @@ img {
     margin-bottom: 10px;
     align-self: center;
 }
+
 #diagnostics {
     display: block;
     transition: .6s;
