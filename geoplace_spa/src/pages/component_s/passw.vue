@@ -54,8 +54,8 @@
         <label id="passw-shw">
             <input type="checkbox" id="passw-chk" @click='showHiddenPw'/>
             <span>show password</span>
+            <p id="passw-msg">Digite uma senha valida</p>
         </label>
-        <p id="passw-msg">Digite uma senha valida</p>
     </div>
 </template>
 
@@ -97,22 +97,27 @@ label {
     color: dimgray;
 }
 #passw-shw {
+    display: flex;
     margin-bottom: 4px;
     margin-top: 10px;
 }
 
-#passw-chk { vertical-align: middle;}
+#passw-chk { 
+    vertical-align: middle;
+}
 
 #passw-shw span {
+    width: 50%;
     font: normal 1rem/1 "AppFont", Sans-serif;
     margin-left: 6px;
     cursor: pointer;
+    padding: 5px 0;
 }
 
 #passw-msg {
+    padding: 5px 0;
     display: block;
     width: 100%;
-    padding: 5px 0;
     transition: .6s;
     opacity: 0;
     font: 400 .8rem/1 "AppFont", Sans-serif;
