@@ -1,125 +1,85 @@
 
 <script setup>
-    import { onMounted } from "vue";
-    import { useRoute, useRouter } from 'vue-router'
-    import Apicf from './../../api-server.conf.mjs'
-    const app_router = useRouter()
-    const app_querie =  useRoute()
+import { onMounted, ref, onBeforeMount } from "vue";
+import { useRoute } from 'vue-router'
+import Notify from './component_s/notify_popup.vue'
+import Apicf from './../../apiconfig.mjs'
+
+const app_querie =  useRoute()
+const scode = app_querie.params.scode;
+const show_poup = ref(false)
+
+const popup_attributes = ref({
+    show_loading: true,
+    goto: undefined,
+    button_text: 'Ok, tudo certo',
+    message: 'Opa, tudo joia meu parça',
+    icon: 'warning.png'
+})
+
+onMounted(async ()=> {
+    popup_attributes.value.show_loading = true;
+    show_poup.value = true;
+    let resp_status = 500;
     
+    try {
+        const body = {
+            method: 'PUT',
+            headers: { 'content-type': 'application/json'},
+            body: JSON.stringify({ gp_scode: scode || ''})
+        }
+        const res = await fetch(Apicf.API_URL+'/ative',body)
+        resp_status = res.status;
+    }
+    catch(e){resp_status = 500;}
     
-    onMounted(async ()=>{
-        const sucsess = document.getElementById('sucsess')
-        const expired = document.getElementById('expired')
-        const scode = app_querie.params.scode;
-        try {/*
-           const body = {
-                method: 'PUT',
-                headers: { 'content-type': 'application/json'},
-                body: JSON.stringify({
-                    gp_scode: scode || ''
-                })
-            }
-            const res = await fetch(Apicf.API_URL+'/ative',body);
-            */
-            if (true){ 
-                sucsess.style.display = 'block'; 
-                window.localStorage.removeItem('gpl_isPendg')
-                return
-            }
-            if (false) { 
-                
-                expired.style.display = 'block'; return
-            }
-            //app_router.push('/pageNotFoun')
-        }catch(e){app_router.push('/pageNotFoun')}
-    });
+    if (resp_status == 200 ) {
+        setTimeout(()=>{
+            popup_attributes.value.show_loading = false;
+        },200);
+        popup_attributes.value.message = 'Parabéns sua conta foi ativa, Você já pode acessar sua conta'
+        popup_attributes.value.goto = '/login'
+        popup_attributes.value.button_text = 'Entrar'    
+        window.localStorage.removeItem('gpl_isPendg')
+    }
+
+    if (resp_status == 400 || resp_status == 401 ) {
+        setTimeout(()=>{
+            popup_attributes.value.show_loading = false;
+        },200);
+        popup_attributes.value.message = 'Opá, Parece que esse link não é mais válido, peça um novo link'
+        popup_attributes.value.goto = '/getNewLink'
+        popup_attributes.value.button_text = 'Pedir novo link'    
+    }
+
+    if (resp_status == 500 ) {
+        setTimeout(()=>{
+            popup_attributes.value.show_loading = false;
+        },200);
+        popup_attributes.value.message = 'Parece que há um erro no servidor, por favor tente mais tarde'
+        popup_attributes.value.goto = '/error/500'
+        popup_attributes.value.button_text = 'fechar'    
+    }
+})
 </script>
 
 <template>
-    <main id='ative-page'>
-        <div id="sucsess">
-            <header>
-                <i class='material-icons'>&#xe86c;</i>
-                <h1> Sua conta foi Ativada com <br>Sucesso!</h1>
-            </header>
-            <p> 
-                Agora você pode aproveitar todas as vantagens 
-                que o geoplace tem a oferecer!
-            </p>
-            <button 
-                id='bnt-to-app'>Entrar
-            </button>
-        </div>
-         <div id="expired">
-            <header> 
-                <i class='material-icons'>&#xe426;</i>
-                <h1>Link Expirado</h1>
-            </header>
-            <p> 
-                Por favor! peça um novo link 
-                para continuar com a ativação da sua conta
-            </p>
-            <button>Pedir Novo Link</button>
-        </div>
-        
-    </main>
+    <div id='ative-page'>
+        <Notify
+            :attributes=popup_attributes
+            v-if='show_poup'
+            @close-popup='()=>{show_poup = !show_poup}'
+        />
+    </div>
 </template>
 
 <style scoped>
-
 #ative-page {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-content: center;
     width: 100vw;
-    height: 80vh;
-}
-#sucsess {display: none;}
-#expired, #sucsess {
-    display: block;
-    width: 75%;
-    height: 50%;
-    display: none;
-}
-
-header {
-    display: block;
-    width: 100%;
-}
-
-i {
-    display: block;
-    width: 100%;
-    text-align: center;
-    font-size: 3.5rem;
-    margin-bottom: 25px;
-}
-
-h1 {
-    display: block;
-    text-align: center;
-    font: bolder 1.4rem/1 "Manjari";
-}
-
-p {
-    width: 100%;
-    display: block;
-    text-align: center;
-    margin-top: 25px;
-    color: dimgray;
-    font: normal 1rem/1.5 "Manjari";
-}
-
-button {
-    display: block;
-    background-color: #12662bff;
-    border: 1px solid #12662bff;
-    width: 100%;
-    padding: 4% 10px;
-    margin: 40px auto 2% auto;
-    color: var(--whit-color);
-    font: bolder 1rem/1 "Manjari";
-    cursor: pointer;
+    height: 100vh;
 }
 </style>
