@@ -2,7 +2,7 @@
 import { models } from "../models/models.mjs";
 import rediscnnx from "../src/rediscnnx.mjs";
 
-const update_password = async (req,res)=> {
+export const update_pwd = async (req,res)=> {
     const scode = req.body.gp_code;
     const passw = req.body.unpassw || " ";
     

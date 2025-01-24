@@ -15,7 +15,7 @@ onBeforeMount(()=>{
     <div id="active-page">
         <header>
             <i class='material-icons'>&#xe0be;</i>
-            <h1> Sua conta foi criada com <br>Sucesso!</h1>
+            <h1> Ok, você já está pronto para o próximo passo!</h1>
         </header>
         <p>Enviamos um e-mail de ativação para seu email. <br> Por favor, verifique sua caixa de entrada</p>
         <button id='bnt-to-app'

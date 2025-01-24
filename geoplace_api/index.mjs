@@ -3,7 +3,7 @@ import 'dotenv/config'
 import express from 'express'
 import cors from 'cors'
 import {models,starts} from './models/models.mjs'
-import returns from './returns/returns.mjs';
+
 
 //controllers
 import {login} from './controllers/login.mjs';
@@ -14,7 +14,8 @@ import {get_new_scode} from './controllers/get_new_scode.mjs';
 import {delet_account} from './controllers/delet_account.mjs';
 import {update_account} from './controllers/update_accout.mjs';
 import {change_password} from './controllers/change_password.mjs';
-
+import {recovery_pwd} from './controllers/recovery_password.mjs';
+import {update_pwd} from './controllers/update_password.mjs';
 
 const app = express();
 app.use(express.json())
@@ -25,6 +26,8 @@ app.use(cors({
 }));
 app.post('/login',login); 
 app.post('/sigin',sigin); 
+app.post('/recovery-pwd',recovery_pwd)
+app.post('/update-pwd',update_pwd)
 app.put('/ative',active_account); 
 app.delete('/user-delet',delet_account); 
 app.patch('/user-update',update_account); 
@@ -52,4 +55,4 @@ const startupAPI = async ()=> {
 }
 
 startupAPI();
-export default app;
+//export default app;
