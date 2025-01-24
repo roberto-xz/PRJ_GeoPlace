@@ -20,10 +20,11 @@ const send = async ()=>{
         const body = {
             method: 'POST',
             headers: {'content-type':'application/json'},
-            body: JSON.stringify({user_mail:email_ref.value.addres})
+            body: JSON.stringify({user_email:email_ref.value.addres})
         }
 
-        res = await fetch(Apicf.API_URL+'/recovery-pwd',body);
+        const res = await fetch(Apicf.API_URL+'/recovery-pwd',body);
+        console.log(res.status)
         switch(res.status){
             case 404:
                 diagnostic.style.opacity = 1;
@@ -33,12 +34,13 @@ const send = async ()=>{
                 },2000)
             break;
             case 401:
+                // conta não está ativada
                 app_route.push('/getNewLink')
             break;
             case 429:
                 diagnostic.style.opacity = 1;
                 diagnostic.innerText = 'Muitas Tentativas, Tente outra hora';
-                setTimeout(()=>{
+                setTimeout(()=> {
                     diagnostic.style.opacity = 0;
                 },2000)
             break;
@@ -49,6 +51,7 @@ const send = async ()=>{
     }catch(e){
         diagnostic.style.opacity = 1;
         diagnostic.innerText = 'Servidor Offline'
+        console.log(e)
         setTimeout(()=>{
             diagnostic.style.opacity = 0;
         }, 2000);
@@ -62,6 +65,11 @@ const send = async ()=>{
     <main>
         <img src="/res/geoplace_icon.png" alt="geoplace image logo"/>
         <div id='diagnostics'>Messagens aki</div>
+        <h1>Você esqueceu sua senha?</h1>
+        <p id='desc'>
+            Informe o endereço de email usado no momento do cadastro,
+            e iremos te enviar um link para recadastro de senha..
+        </p>
         <Email ref="email_ref"/>
         <button @click='send()'>Recuperar</button>
     </main>
@@ -77,7 +85,7 @@ const send = async ()=>{
     width: 100vw;
     height: 70vh;
 }
-main {width: 70%;}
+main {width: 80%;}
 img {
     display: block;
     width: 110px;
@@ -94,17 +102,34 @@ img {
     background-color: rgb(236, 127, 127);
     font: bolder .8rem/1 "Manjari";
     color: #f3f3f3;
-    padding: 3%;
+    padding: 2% 0;
+    margin-bottom: 20px;
 }
+h1 {
+    width: 100%;
+    text-align: center;
+    color: #000;
+    margin-bottom: 5px;
+    font: bolder 1.4rem/1 "Manjari";
+}
+
+#desc {
+    width: 100%;
+    text-align: center;
+    margin-top: 3%;
+    color: #717171;
+    font: bolder .9rem/1.4 "Manjari";
+    padding: 10px 0;
+}  
 
 button {
     display: block;
     background-color: darkgreen;
     border: 1px solid var(--gren-color);
     width: 100%;
-    padding: 4% 10px;
+    padding: 5% 10px;
     text-align: center;
-    margin: 40px auto 2% auto;
+    margin: 5px auto 2% auto;
     color: var(--whit-color);
     font: bolder 1rem/1 "Manjari";
     cursor: pointer;
