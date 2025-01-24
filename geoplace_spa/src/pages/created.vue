@@ -13,15 +13,18 @@ onBeforeMount(()=>{
 
 <template>
     <div id="active-page">
-        <header>
-            <i class='material-icons'>&#xe0be;</i>
-            <h1> Ok, você já está pronto para o próximo passo!</h1>
-        </header>
-        <p>Enviamos um e-mail de ativação para seu email. <br> Por favor, verifique sua caixa de entrada</p>
-        <button id='bnt-to-app'
-            @click="()=>{app_router.push('/getNewLink')}">
-            Não recebeu o Email?
-        </button>
+        <main>
+            <header>
+                <img src="/res/geoplace_icon.png" alt="geoplace image logo"/>
+                <h1> Conta pendente</h1>
+            </header>
+            <p> Enviamos um e-mail de ativação para seu email. 
+            Por favor, verifique sua caixa de entrada e clique no link para ativar sua conta </p>
+            <button id='bnt-to-app'
+                @click="()=>{app_router.push('/getNewLink')}">
+                Não recebeu o Email?
+            </button>
+    </main>
     </div>
 </template>
 
@@ -34,10 +37,23 @@ onBeforeMount(()=>{
         width: 100vw;
         height: 80vh;
     }
+    main {
+        width: min(430px, 85%);
+    }
         header {
             display: block;
-            width: 60%;
+            width: 100%;
         }
+
+img {
+    display: block;
+    width: 100px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    align-self: center;
+}
+
+
             i {
                 display: block;
                 width: 100%;
@@ -52,18 +68,18 @@ onBeforeMount(()=>{
                 font: bolder 1.4rem/1 "Manjari";
             }
             p {
-                width: 70%;
+                width: 100%;
                 display: block;
                 text-align: center;
                 margin-top: 25px;
                 color: dimgray;
-                font: normal 1rem/1 "Manjari";
+                font: normal 1rem/1.3 "Manjari";
             }
      #bnt-to-app {
         display: block;
-        background-color: black;
-        border: 1px solid black;
-        width: 70%;
+        background-color: darkgreen;
+        border: 1px solid darkgreen;
+        width: 100%;
         padding: 3% 10px;
         text-align: center;
         margin: 40px auto 2% auto;
