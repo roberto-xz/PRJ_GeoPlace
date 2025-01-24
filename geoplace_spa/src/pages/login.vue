@@ -7,26 +7,31 @@ import checkAcess from '../../utils/checkAcess.mjs';
 import Apicf from './../../apiconfig.mjs'
 import Email from './component_s/email.vue'
 import Passw from './component_s/passw.vue'
+import Notify from './component_s/notify_popup.vue'
     
 const email_ref = ref(null)
 const passw_ref = ref(null)
 const app_route = useRouter();
+const show_poup = ref(false)
+
+const popup_attributes = ref({
+    show_loading: true,
+    goto: undefined,
+    button_text: 'Ok, tudo certo',
+    message: 'Opa, tudo joia meu parça',
+    icon: 'warning.png'
+})
 
 onBeforeMount(()=>{checkAcess(app_route)})
 
 const login = async ()=> {
-    let diagnostic = document.getElementById('diagnostics')
     if (!email_ref.value.status || 
         !passw_ref.value.status ) {
-            
-        diagnostic.style.opacity = 1;
-        diagnostic.innerText = 'Há campos inválidos'
-        setTimeout(()=>{
-            diagnostic.style.opacity = 0;
-        },2000)
         return;
     }
-
+    show_poup.value = true;
+    popup_attributes.value.show_loading = true;
+    
     try {
         const body = {
             method: 'POST',
@@ -39,8 +44,12 @@ const login = async ()=> {
         
         const res = await fetch(Apicf.API_URL+'/login',body);
         if (res.status == 401 ) {
-            app_route.push('/created')
-            window.localStorage.setItem('gpl_isPendg','ok')
+            setTimeout(()=>{
+                popup_attributes.value.show_loading = false;
+            },200);
+            popup_attributes.value.message = 'Opá, Parece que sua conta ainda não foi ativada, peça um novo link de ativação'
+            popup_attributes.value.goto = '/getNewLink'
+            popup_attributes.value.button_text = 'Pedir novo Link'
             return
         }
         if (res.status ==  200) {
@@ -48,19 +57,23 @@ const login = async ()=> {
             window.localStorage.setItem('gpl_lgToken',token);
             app_route.push('/home')
         
-        }else if (res.status == 404) {
-            diagnostic.style.opacity = 1;
-            diagnostic.innerText = 'Email ou senha inválido'
-            setTimeout(()=>{
-                diagnostic.style.opacity = 0
-            },2000);
+        }else if (res.status == 404 || res.status == 400) {
+             setTimeout(()=>{
+                popup_attributes.value.show_loading = false;
+            },200);
+            
+            popup_attributes.value.message = 'Credenciais inválidas, Verifique se você digitou o email e senha corretos'
+            popup_attributes.value.goto = undefined
+            popup_attributes.value.button_text = 'Fechar'
+            return
         }
-    }catch(e){
-        diagnostic.style.opacity = 1;
-        diagnostic.innerText = 'Servidor Offline'
-        setTimeout(()=>{
-            diagnostic.style.opacity = 0;
-        }, 2000);
+    }catch(e) {
+         setTimeout(()=>{
+            popup_attributes.value.show_loading = false;
+        },200);
+        popup_attributes.value.message = 'Ué, Nosso servidor não está respondendo, por favor volte outra hora!!'
+        popup_attributes.value.goto = undefined
+        popup_attributes.value.button_text = 'fechar'    
     }
 }
 
@@ -68,16 +81,26 @@ const login = async ()=> {
 
 <template>
     <div id="login-page">
+    <Notify
+        :attributes=popup_attributes
+        v-if='show_poup'
+        @close-popup='()=>{show_poup = !show_poup}'
+    />
     <main>
         <img src="/res/geoplace_icon.png" alt="geoplace image logo"/>
-        <div id='diagnostics'>Messagens aki</div>
+        <header>
+            <h1>Bem vindo de volta</h1>
+            <h5>Digite suas Credenciais para acessar sua conta</h5>
+        </header>
         <Email ref="email_ref"/>
         <Passw ref="passw_ref"/>
-        <span 
-            @click='()=>app_route.push("/recoveryPwd")'>
-            Esqueci a senha
-        </span>
         <button @click="login()" id="bnt-login">Entrar</button>
+        <p>Esqueceu a senha?, 
+            <i @click='()=>{app_route.push("/recoverypwd")}'> Recuperar</i>
+        </p>
+        <p>Ainda não tem uma conta,
+            <i @click='()=>{app_route.push("/sigin")}'> Criar um conta</i>
+        </p>
     </main>
     </div>
 </template>
@@ -90,9 +113,29 @@ const login = async ()=> {
     justify-content: center;
     align-items: center;
     width: 100vw;
-    height: 70vh;
+    height: 100vh;
 }
-main {width: 70%;}
+main {
+    width: min(430px,85%);
+}
+
+header {
+    display: block;
+    width: 100%;
+    margin: 20px 0;
+}
+    header h1 {
+        width: 100%;
+        text-align: center;
+        font: bolder 1.6rem/1 "Manjari";
+    }
+    header h5 {
+        width: 100%;
+        text-align: center;
+        font: normal 1rem/1 "Manjari";
+        margin-bottom: 10%;
+    }
+
 img {
     display: block;
     width: 110px;
@@ -111,14 +154,22 @@ img {
     color: #f3f3f3;
     padding: 3%;
 }
-span {
+
+p {
     display: block;
     width: 100%;
-    text-align: right;
-    text-decoration: underline;
+    margin: 10px 0;
+    text-align: center;
+    color: dimgray;
+    font: normal 1rem/1 "Manjari";
+}
+
+i {
+    font: 900 .9rem/1 "Manjari";
+    display: inline;
     color: blue;
+    text-decoration: underline;
     cursor: pointer;
-    font: bolder .9rem/1 "Manjari";
 }
 #bnt-login {
     display: block;
@@ -127,7 +178,7 @@ span {
     width: 100%;
     padding: 4% 10px;
     text-align: center;
-    margin: 40px auto 2% auto;
+    margin: 40px auto 10% auto;
     color: var(--whit-color);
     font: bolder 1rem/1 "Manjari";
     cursor: pointer;
