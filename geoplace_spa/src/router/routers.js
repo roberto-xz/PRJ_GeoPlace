@@ -3,8 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 // import loginPage from ''
 
 const routers = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  
+  history: createWebHistory(import.meta.env.BASE_URL), 
   routes: [
     {path: '/indexPage',name:'index',component: ()=> import('../pages/indexPage.vue')},
     {path: '/login',name:'login',component: ()=> import('../pages/login.vue')},
@@ -20,8 +19,8 @@ const routers = createRouter({
     {path: '/about',name:'about',component: ()=> import('../pages/aboutPage.vue')},
     {path: '/help',name:'help',component: ()=> import('../pages/helpPage.vue')},
     {path: '/terms',name:'userTerms',component: ()=> import('../pages/userTermsPage.vue')},
-    {path: '/recoveryPwd',name:'recpwd',component: ()=> import('../pages/recoveryPassword.vue')},
-    {path: '/updatePassword/:scode',name:'updpwd',component: ()=> import('../pages/updatePassword.vue')},
+    {path: '/recoverypwd',name:'recpwd',component: ()=> import('../pages/recoveryPassword.vue')},
+    {path: '/updatepwd/:scode',name:'updpwd',component: ()=> import('../pages/updatePassword.vue')},
     {path: '/:pathMatch(.*)*/:code', name: 'notFound', component: ()=> import('../pages/errors.vue')},
   ],
   
