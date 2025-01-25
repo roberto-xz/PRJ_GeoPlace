@@ -2,7 +2,7 @@
 import {models} from '../models/models.mjs'
 import nodemaile from '../src/nodemaile.mjs';
 import rediscnnx from '../src/rediscnnx.mjs'
-import secret_code from '../utils/creat_scode.mjs';
+import { gen_scode } from '../utils/scode.mjs';
 import { valid_email } from '../utils/valid_email.mjs';
 
 export const recovery_pwd = async (req,res)=> {
@@ -28,7 +28,7 @@ export const recovery_pwd = async (req,res)=> {
     const email_status = true // para teste
 
     if (email_status) {
-        const scode = secret_code()
+        const scode = gen_scode()
         let redis_value = JSON.stringify({
             email: email,
             ctype: 'recovery_password'
