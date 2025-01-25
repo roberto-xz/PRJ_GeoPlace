@@ -7,7 +7,8 @@ export default async (app_route)=> {
     
     if (account_sts) {
         console.log('há um conta pendente, redirecioando');
-        return app_route.push('/created');
+        app_route.push('/created');
+        return ''
     }
     if (login_token != null) {
         console.log('há um token de sessão, tentando validar');
@@ -26,10 +27,9 @@ export default async (app_route)=> {
             }
             console.log('o token é inválido, e foi removido')
             window.login_token.removeItem('gpl_lgToken')
-            return
+            return ''
         }
-        catch(e){console.log('A api não respondeu a verificação de token'); return}
+        catch(e){return 'no-token'}
     }
-    console.log('Não há tokens para verificação')
-    return
+    return 'no-scode'
 }
