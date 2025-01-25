@@ -12,7 +12,7 @@ import { useRoute, useRouter } from 'vue-router';
 const passw_ref = ref(null)
 const show_poup = ref(false)
 const scode = useRoute().params.scode;
-
+const app_route = useRouter();
 
 const popup_attributes = ref({
     show_loading: true,
@@ -22,7 +22,28 @@ const popup_attributes = ref({
     icon: 'warning.png'
 })
 
-onBeforeMount(()=>{ checkAcess(useRouter())})
+onBeforeMount(async ()=>{ 
+    // verifica se há conta pendente ou logada
+    checkAcess(app_route)
+    show_poup.value = true;
+    popup_attributes.value.show_loading = true;
+    try{
+        const body = {
+            method: 'PUT',
+            headers: {'content-type':'application/json'},
+            body: JSON.stringify({
+                gp_code: scode,
+                unpassw: 'tem_jeito_nao_oda_he_genio'
+            })
+        };
+        const res = await fetch(Apicf.API_URL+'/update-pwd',body);
+        if (res.status == 401)
+            return app_route.push('/error/403')
+        show_poup.value = false;
+        popup_attributes.show_loading = false;
+    }
+    catch(e){}
+})
 
 const send = async ()=> {
     if (!passw_ref.value.status) return
