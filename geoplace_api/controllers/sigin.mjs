@@ -3,7 +3,7 @@ import rediscnnx from '../src/rediscnnx.mjs';
 import nodemaile from '../src/nodemaile.mjs';
 
 import valid_login from '../utils/login_valid.mjs';
-import secret_code from '../utils/creat_scode.mjs';
+import { gen_scode } from '../utils/scode.mjs';
 import email_plate from '../utils/email_plate.mjs';
 import {models}    from '../models/models.mjs'
 
@@ -26,7 +26,7 @@ export const sigin = async (req, res)=> {
     });
 
     if (created) {
-        let scode = secret_code();
+        let scode = gen_scode();
         let email = email_plate(user_mail,scode);
 
         //const email_status = await nodemaile(email); // envia um email
