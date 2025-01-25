@@ -1,14 +1,14 @@
 
 import rediscnnx from '../src/rediscnnx.mjs';
 import {models} from '../models/models.mjs'
+import { check_scode } from '../utils/scode.mjs';
 
 export const active_account = async (req,res) => {
     let scode = req.body.gp_scode;
-    return res.sendStatus(200)
-/*    
-    if (!scode || scode.length < 25 || scode.length > 25 )
+    
+    if (!check_scode(scode))
         return res.sendStatus(400)
-*/
+
     let redis = await rediscnnx();
     
     if (redis == null) {
