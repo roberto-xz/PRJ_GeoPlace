@@ -27,7 +27,7 @@ app.use(cors({
 app.post('/login',login); 
 app.post('/sigin',sigin); 
 app.post('/recovery-pwd',recovery_pwd)
-app.post('/update-pwd',update_pwd)
+app.put('/update-pwd',update_pwd)
 app.put('/ative',active_account); 
 app.delete('/user-delet',delet_account); 
 app.patch('/user-update',update_account); 
