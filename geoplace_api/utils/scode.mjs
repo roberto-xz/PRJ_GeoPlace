@@ -13,7 +13,11 @@ export const gen_scode = ()=> {
 }
 
 export const check_scode = (scode)=> {
-    if (scode == null || scode == undefined )
+    if (
+        scode == null || 
+        scode == undefined ||
+        scode.length != 25
+    )
         return false;
     
     const dict = "abcdEfghijkLmnop012345QRSTUVXYZ_"
