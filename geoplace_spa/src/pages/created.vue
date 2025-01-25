@@ -1,12 +1,16 @@
 
 <script setup>
 import { onBeforeMount } from "vue";
-import { useRoute, useRouter } from 'vue-router'
-const route = useRoute()
+import { useRouter } from 'vue-router'
+
 const app_router = useRouter();
 
 onBeforeMount(()=>{
-    console.log(route.params.token)
+    let login_token = window.localStorage.getItem('gpl_lgToken');
+    let account_sts = window.localStorage.getItem('gpl_isPendg')
+
+    if (login_token) app_router.push('/error/403');
+    if (account_sts == null) app_router.push('/error/403');
 })
 
 </script>
