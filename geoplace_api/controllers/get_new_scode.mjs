@@ -3,7 +3,7 @@ import rediscnnx from '../src/rediscnnx.mjs';
 import nodemaile from '../src/nodemaile.mjs';
 import { models } from "../models/models.mjs";
 import { valid_email } from "../utils/valid_email.mjs";
-import secret_code from '../utils/creat_scode.mjs';
+import { gen_scode  } from '../utils/scode.mjs';
 import email_plate from '../utils/email_plate.mjs';
 
 
@@ -32,7 +32,7 @@ export const get_new_scode = async (req, res) => {
             return res.status(500).send(); // Internal Server error_operation_failed
         }
 
-        let scode = secret_code();
+        let scode = gen_scode();
         let email = email_plate(user_email,scode);
         
         //const email_status = await nodemaile(email);
