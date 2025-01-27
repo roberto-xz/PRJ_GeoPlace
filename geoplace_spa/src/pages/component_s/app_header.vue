@@ -1,72 +1,58 @@
 
 <script setup>
-    const props = defineProps({
-        page_title: {
-            type: String,
-            required: true
-        }
-    });
 </script>
 
 <template>
-    <header id="app-header">
-        <div id="div-a">
-            <img src='/res/rmenu.svg' id="rmenu-icon" alt='' @click="$emit('open-rmenu')"/>
-            <h1>{{page_title}}</h1>
-        </div>
-        <div id="search-box">
-            <input type="url" placeholder="Procurar, Estado, cidade rua"/>
-            <img src='/res/lupe.svg' id="lupesc-ic" alt='' @click="$emit('click-lupe')"/>
-            <img src='/res/filter.svg' id="filter-ic" alt='' @click="$emit('click-filt')"/>
-        </div>
+    <header id='header-component'>
+        <main>
+            <img src="/res/geoplace.svg" alt="geoplace image logo"/>
+            <input type='url' placeholder="Pesquisar, Estado, Cidade, Rua"/>
+            <button>Filtros</button>
+            <nav id='menu'>
+                <button>Salvos</button>
+                <button>Meus anúncios</button>
+                <button>Criar anúncio</button>
+                <button>Perfil</button>
+                <button>Sair</button>
+            </nav>
+        </main>
     </header>
 </template>
 
 <style scoped>
-    header {
-        display: block;
-        width: 100%;
-        background-color: #ffffff;
-        border-bottom: 1px solid #000;
-        padding: 0 3%;
-        padding-bottom: 10px;
-        padding-top: 10px;
-    }
-        #div-a {
-            display: grid;
-            grid-template-columns: 20% 80%;
-        }
+#header-component {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    width: 100vw;
+    padding: 4px 0;
+    border-bottom: 1px solid #000;
+    background-color: #f3f3f3;
+}
 
-        #rmenu-icon { display: block; width: 45%; cursor: pointer;}
-        #div-a h1 {
-            vertical-align: middle;
-            width: 70%;
-            text-align: center;
-            font: bolder 1rem/3 "Manjari";
-        }
+main{
+    display: flex;
+    flex-wrap: wrap;
+    justify-items: center;
+    width: 90%;
+    height: 100%;
+}
 
-        #search-box {
-            display: grid;
-            width: 100%;
-            align-items: center;
-            padding-bottom: 5px;
-            grid-template-columns: 80% 10% 10%;
-        }
+main img {
+    display: block;
+    width: 120px;
+}
+input[type='url'] {
+    font: bolder 1rem/1 "Manjari";
+    display: block;
+    background-color: #f3f3f3;
+    border: 1px solid #000;
+    outline: none;
+    padding: 10px 10px;
+    margin: 0 20px 0 30px;
+    width: min(700px, 80%);
+}
 
-        input[type='url'] {
-            display: block;
-            width: 100%;
-            border: 2px solid #000;
-            padding: 3% 2%;
-            font: 900 .9rem/1 "Manjari";
-            color: #313131;
-            outline: #000;
-        }
 
-        #search-box img {
-            display: block;
-            width: 33px;
-            margin: auto auto;
-            cursor: pointer;
-        }
 </style>
