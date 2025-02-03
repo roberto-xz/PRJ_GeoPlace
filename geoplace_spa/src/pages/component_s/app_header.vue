@@ -57,7 +57,11 @@ input[type='url'] {
     border: 1px solid #ccc;
 }
 
-#menu {}
+#menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 button {
     font: 500 .9rem/1.3 "Manjari";
