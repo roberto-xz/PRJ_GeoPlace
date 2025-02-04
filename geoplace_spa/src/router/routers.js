@@ -22,6 +22,7 @@ const routers = createRouter({
     {path: '/recoverypwd',name:'recpwd',component: ()=> import('../pages/recoveryPassword.vue')},
     {path: '/updatepwd/:scode',name:'updpwd',component: ()=> import('../pages/updatePassword.vue')},
     {path: '/:pathMatch(.*)*/:code', name: 'notFound', component: ()=> import('../pages/errors.vue')},
+    {path: '/createProducts', name: 'crProducts', component: ()=> import('../pages/createProduct.vue')},
   ],
   
 });
