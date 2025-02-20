@@ -1,117 +1,150 @@
+<script setup>
+import appHeader from "./component_s/app_header.vue";
+</script>
 
 <template>
-    <div id="update-perfil-page">
-        <header>
-            <img src="/res/GenericProfile.jpg" alt=''/>
-            <span>Mudar foto</span>
-        </header>
+  <div id="update-perfil-page">
+    <appHeader @open-rmenu="toogleMenu" page_title="Página Principal" />
+
+    <div class="profile-container">
+      <header>
+        <img src="/res/GenericProfile.jpg" alt="Foto de Perfil" />
+        <span>Mudar foto</span>
+      </header>
+
+      <form>
+        <label> Nome completo <input type="text" placeholder="Digite seu nome" /></label>
         
-        <form>
-            <label> Nome completo <input type='text' alt='User name'/></label>
-            <div id='t2-colls'>
-                 <label> Nome de usuário <input type='text' alt='User name'/></label>
-                 <label> CPF (sem pontuação) <input type='text' alt='12312302332'/></label>
-            </div>
-            <label>
-                Número para contato
-                <input type='text' alt='+XX (xx) X.xxxx-xxxx'/>
-            </label>
-             <label>
-                Email para contato
-                <input type='text' alt='cicrano@email.com'/>
-            </label>
-            <div id="t3-colls">
-                 <label> Cidade onde Reside <input type='text' alt='User name'/></label>
-                 <label> Estado (UF) <input type='text' alt='12312302332'/></label>
-            </div>
-            <label id="label-checkbox">
-                <input id="location-permission" type='checkbox'> 
-                Permitir que salve minha localização
-            </label>
-            <button id='update-bnt'>Atualizar</button>
-            <button id="delete-bnt">Excluir conta</button>
-        </form>
+        <div class="input-group">
+          <label> Nome de usuário <input type="text" placeholder="Usuário" /></label>
+          <label> CPF (sem pontuação) <input type="text" placeholder="12312302332" /></label>
+        </div>
+
+        <label> Número para contato <input type="text" placeholder="+XX (xx) X.xxxx-xxxx" /></label>
+        <label> Email para contato <input type="email" placeholder="cicrano@email.com" /></label>
+
+        <div class="input-group">
+          <label> Cidade onde Reside <input type="text" placeholder="Cidade" /></label>
+          <label> Estado (UF) <input type="text" placeholder="UF" /></label>
+        </div>
+
+        <label class="checkbox-label">
+          <input id="location-permission" type="checkbox" />
+          Permitir que salve minha localização
+        </label>
+
+        <button id="update-btn">Atualizar</button>
+        <button id="delete-btn">Excluir conta</button>
+      </form>
     </div>
+  </div>
 </template>
 
-
 <style scoped>
-    #update-perfil-page {width: 100%;}
-    header {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        padding: 10px;
-    }
-        header img {
-            display: block;
-            width: 90px;
-            height: 90px;
-            border-radius: 100%;
-        }
-        header span {
-            display: block;
-            width: 100%;
-            text-align: center;
-            padding: 2% 0;
-            font: bolder 1rem/1 "Manjari";
-        }
-    form {
-        padding: 0 5%;
-    }
-    form label {
-        display: block;
-        width: 100%;
-        color: gray;
-        font: bolder 1rem/1 "Manjari";
-        margin: 3% auto;
-    }
-        label input {
-            display: block;
-            width: 100%;
-            border: 1px solid #000;
-            font: bolder 1rem/1 "Manjari";
-            padding: 12px;
-            color: #000;
-        }
-    #t2-colls, #t3-colls {
-        display: grid;
-        align-items: center;
-        grid-template-columns: 49% 49%;
-        justify-content: space-between;
-    }
 
-    #t3-colls {
-        grid-template-columns: 73% 25%;
-    }
-    #location-permission {
-        display: inline;
-        width: 30px;
-        vertical-align: middle;
-        margin: 0;
-    }
-    #label-checkbox {
-        text-align: left;
-        display: block;
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
 
-    #update-bnt, #delete-bnt {
-        display: block;
-        background-color: #3D677A;
-        border: 1px solid #3D677A;
-        width: 100%;
-        padding: 4%;
-        margin: 10% auto 0 auto;
-        color: var(--whit-color);
-        font: bolder 1rem/1 "Manjari";
-        cursor: pointer;
-    }
+/* Centraliza a página e define a largura */
+#update-perfil-page {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 
-    #delete-bnt {
-        background-color: #aa5151;
-        border: 1px solid #aa5151;
-        margin: 1% auto 0 auto;
-    }
+.profile-container {
+  width: 80%;
+  max-width: 600px;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+/* Estiliza o cabeçalho do perfil */
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+header img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+header span {
+  margin-top: 10px;
+  color: #3D677A;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Formulário */
+form {
+  text-align: left;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  color: gray;
+  margin-bottom: 8px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+/* Grupo de inputs para divisão em colunas */
+.input-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.input-group label {
+  width: 48%;
+}
+
+/* Checkbox */
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+#location-permission {
+  width: 20px;
+}
+
+/* Botões */
+#update-btn, #delete-btn {
+  width: 100%;
+  padding: 12px;
+  font-weight: bold;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#update-btn {
+  background-color: darkgreen;
+  margin-top: 10px;
+}
+
+#delete-btn {
+  background-color: #aa5151;
+  margin-top: 5px;
+}
 </style>

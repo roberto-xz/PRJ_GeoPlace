@@ -1,10 +1,12 @@
 
 <script setup>
     import slidesShow from "./component_s/app_slides.vue";
+    import appHeader from "./component_s/app_header.vue";
 </script>
 
 <template>
 <div>
+    <appHeader @open-rmenu = "toogleMenu" page_title="Pagina principal"/>
     <slidesShow />
     <div id="show-options">
         <button>Imagens</button>
@@ -34,11 +36,11 @@
 <style scoped>
     #show-options{
         display: flex;
-        width: 100%;
+        width: 80%;
         justify-content: space-between;
         padding: 10px;
         border-bottom: 1px solid #000;
-        margin-top: 10px;
+        margin: 10px auto auto;
     }
     button {
         background: transparent;
@@ -50,9 +52,10 @@
 
     #item-title, #item-price, h2{
         display: block;
-        width: 100%;
+        width: 80%;
         padding: 5px 10px;
         font: bolder 1.3rem/1 "Manjari";
+        margin: auto auto;
         margin-top: 30px;
     }
 
@@ -64,7 +67,7 @@
     #item-details {
         display: grid;
         grid-template-columns: repeat(3,1fr);
-        width: 97%;
+        width: 80%;
         overflow: auto;
         margin: auto auto;
     }
@@ -74,7 +77,7 @@
             margin: 6px 0;
         }
             .item-box img {
-                width: 100%;
+                width: 30%;
                 vertical-align: middle;
             }
 

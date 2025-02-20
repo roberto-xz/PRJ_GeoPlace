@@ -19,9 +19,10 @@
 <style scoped>
     #main-box {
         display: block;
-        width: 100%;
+        width: 80%;
         height: 295px;
         overflow: auto;
+        margin: auto auto;
     }
 
     #slide-box {
